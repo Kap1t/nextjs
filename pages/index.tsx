@@ -1,7 +1,102 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import type { NextPage } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.css";
+
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import React from "react";
+
+const datas = [
+  {
+    header: "map",
+    content: [
+      { text: "Метод arr.map является одним из наиболее полезных и часто используемых." },
+      {
+        text: "Он вызывает функцию для каждого элемента массива и возвращает массив результатов выполнения этой функции.",
+      },
+      {
+        code: `let lengths = ["Bilbo", "Gandalf", "Nazgul"].map((item) => item.length);
+alert(lengths); // 5,7,6`,
+      },
+    ],
+  },
+  {
+    header: "foreEach",
+    content: [
+      { text: "Метод arr.forEach позволяет запускать функцию для каждого элемента массива." },
+      {
+        code: `// Вызов alert для каждого элемента
+["Bilbo", "Gandalf", "Nazgul"].forEach(alert);`,
+      },
+    ],
+  },
+  {
+    header: "slice",
+    content: [
+      {
+        text: "Он возвращает новый массив, в который копирует элементы, начиная с индекса start и до end (не включая end). Оба индекса start и end могут быть отрицательными. В таком случае отсчёт будет осуществляться с конца массива.",
+      },
+      {
+        code: `let arr = ["t", "e", "s", "t"]; let arr = ["t", "e", "s", "t"];
+alert( arr.slice(1, 3) ); // e,s (копирует с 1 до 3)
+alert( arr.slice(-2) ); // s,t (копирует с -2 до конца)`,
+      },
+      {
+        text: "Можно вызвать slice и вообще без аргументов: arr.slice() создаёт копию массива arr.",
+      },
+    ],
+  },
+];
+
+const Array: React.FC = () => {
+  return (
+    <section className="article">
+      <h1>Методы массивов</h1>
+      <button
+        onClick={() => {
+          document.body.setAttribute("light", "");
+        }}
+      >
+        Светлая
+      </button>
+      <button
+        onClick={() => {
+          document.body.removeAttribute("light");
+        }}
+      >
+        Темная
+      </button>
+      {datas.map((data, index) => {
+        return (
+          <React.Fragment key={index}>
+            <h2>{data.header}</h2>
+            {data.content.map((a, index) => {
+              if (a.hasOwnProperty("text")) {
+                return <p key={index}>{a.text}</p>;
+              }
+              if (a.hasOwnProperty("code")) {
+                return (
+                  <SyntaxHighlighter
+                    key={index}
+                    language="tsx"
+                    style={dracula}
+                    showLineNumbers
+                    customStyle={{ maxWidth: "800px" }}
+                  >
+                    {a.code}
+                  </SyntaxHighlighter>
+                );
+              } else {
+                return <></>;
+              }
+            })}
+          </React.Fragment>
+        );
+      })}
+    </section>
+  );
+};
 
 const Home: NextPage = () => {
   return (
@@ -14,12 +109,11 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          AWelcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.tsx</code>
+          Get started by editing <code className={styles.code}>pages/index.tsx</code>
         </p>
 
         <div className={styles.grid}>
@@ -33,10 +127,7 @@ const Home: NextPage = () => {
             <p>Learn about Next.js in an interactive course with quizzes!</p>
           </a>
 
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
+          <a href="https://github.com/vercel/next.js/tree/canary/examples" className={styles.card}>
             <h2>Examples &rarr;</h2>
             <p>Discover and deploy boilerplate example Next.js projects.</p>
           </a>
@@ -46,9 +137,7 @@ const Home: NextPage = () => {
             className={styles.card}
           >
             <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
+            <p>Instantly deploy your Next.js site to a public URL with Vercel.</p>
           </a>
         </div>
       </main>
@@ -59,14 +148,14 @@ const Home: NextPage = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
       </footer>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

@@ -14,3 +14,27 @@ a {
 * {
   box-sizing: border-box;
 }
+
+:root {
+  --grey-11: #292c31;
+  --grey-10: #232529;
+  --grey-120: #e2e3e7;
+}
+
+[light] {
+  --grey-11: #e2e3e7;
+  --grey-10: #909196;
+  --grey-120: #232529;
+}
+
+body {
+  color: var(--grey-120);
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--grey-11);
+}
+
+.article {
+  margin: 0 auto;
+  max-width: 1000px;
+  background-color: var(--grey-10);
+}
