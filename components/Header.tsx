@@ -2,16 +2,17 @@ import { NextPage } from "next/types";
 import Link from "next/link";
 import Router from "next/router";
 
-import React from "react";
+import React, { useState } from "react";
 
 const textColor = "var(--grey-120)";
 
 const Header: NextPage = () => {
+  const [theme, setTheme] = useState("dark");
   return (
     <header>
       <nav>
-        <Link href={"/post/1"}>1</Link>
-        <Link href={"/post/2"}>2</Link>
+        <Link href={"/post/arrays"}>Массивы</Link>
+        <Link href={"/post/objects"}>Объекты</Link>
         <button
           onClick={() => {
             Router.push("/post/3");
@@ -21,17 +22,17 @@ const Header: NextPage = () => {
         </button>
         <button
           onClick={() => {
-            document.body.setAttribute("light", "");
+            if (theme === "dark") {
+              document.body.setAttribute("light", "");
+              setTheme("light");
+            }
+            if (theme === "light") {
+              document.body.removeAttribute("light");
+              setTheme("dark");
+            }
           }}
         >
-          Светлая
-        </button>
-        <button
-          onClick={() => {
-            document.body.removeAttribute("light");
-          }}
-        >
-          Темная
+          {theme === "dark" ? "светлая" : "темная"}
         </button>
       </nav>
       <style jsx>{`

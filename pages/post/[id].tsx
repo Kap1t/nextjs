@@ -15,7 +15,7 @@ export const getStaticPaths = async () => {
     const response = await fetch(`${process.env.HOST}/api/articlesList`);
     const datas = await response.json();
     const paths = datas.map((data: any) => ({
-      params: { article: "sda", id: data.ref },
+      params: { id: data.ref },
     }));
 
     return {
@@ -33,12 +33,19 @@ export const getStaticProps: GetStaticProps = async (context) => {
   try {
     const response = await fetch(`${process.env.HOST}/api/datas`);
     const datas4 = await response.json();
+
+    if (!datas4) {
+      return {
+        notFound: true,
+      };
+    }
     return {
       props: { datas4 },
     };
   } catch (error) {
     return {
       props: { datas4: null },
+      // revalidate: 10,
     };
   }
 };
@@ -49,8 +56,6 @@ interface Props {
 
 const Post: NextPage<Props> = ({ datas4 }) => {
   const router = useRouter();
-
-  const [datasFromApi, setDatasFromApi] = useState<Data[]>([]);
 
   if (datas4.length === 0) {
     return <div>Загрузка</div>;

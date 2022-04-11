@@ -79,6 +79,7 @@ interface ArticlesListWithData {
 const articlesListD: ArticlesList[] = [{ name: "Массивы", ref: "arrays" }];
 const articlesListDataWithData: ArticlesListWithData[] = [
   { name: "Массивы", ref: "arrays", article: arrays },
+  { name: "Объекты", ref: "objects", article: arrays },
 ];
 
 export default function articlesList(req: NextApiRequest, res: NextApiResponse<ArticlesList[]>) {
