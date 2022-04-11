@@ -33,6 +33,10 @@ body {
   background-color: var(--grey-11);
 }
 
+a {
+  color: var(--grey-120);
+}
+
 .article {
   margin: 0 auto;
   max-width: 1000px;

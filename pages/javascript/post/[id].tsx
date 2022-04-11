@@ -6,9 +6,9 @@ import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 
-import MainLayout from "../../components/MainLayout";
+import MainLayout from "../../../components/MainLayout";
 
-import { Data } from "../api/datas";
+import { Data } from "../../api/datas";
 
 export const getStaticPaths = async () => {
   try {

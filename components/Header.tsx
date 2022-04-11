@@ -1,26 +1,24 @@
 import { NextPage } from "next/types";
 import Link from "next/link";
-import Router from "next/router";
+// import Router from "next/router";
 
 import React, { useState } from "react";
-import { MdDarkMode, MdLightMode } from "react-icons/md";
-
-const textColor = "var(--grey-120)";
+import { MdLightMode, MdNightlight } from "react-icons/md";
+import { IoHomeSharp } from "react-icons/io5";
 
 const Header: NextPage = () => {
   const [theme, setTheme] = useState("dark");
+
   return (
     <header>
       <nav>
-        <Link href={"/post/arrays"}>Массивы</Link>
-        <Link href={"/post/objects"}>Объекты</Link>
-        <button
-          onClick={() => {
-            Router.push("/post/3");
-          }}
-        >
-          3
-        </button>
+        <Link href={"/javascript/post/arrays"}>Массивы</Link>
+        <Link href={"/javascript/post/objects"}>Объекты</Link>
+        <Link href={"/"}>
+          <a>
+            <IoHomeSharp size={"35px"} />
+          </a>
+        </Link>
         <button
           className="themeBtn"
           onClick={() => {
@@ -37,26 +35,24 @@ const Header: NextPage = () => {
           {theme === "dark" ? (
             <MdLightMode size="25px" color="#ffe600" />
           ) : (
-            <MdDarkMode size="25px" />
+            <MdNightlight size="25px" color="#ffe600" style={{ transform: "rotateZ(-17deg)" }} />
           )}
         </button>
       </nav>
       <style jsx>{`
         nav {
-          background-color: var(--grey-10);
+          height: 60px;
           display: flex;
           justify-content: center;
           align-items: center;
-        }
-        nav a {
-          color: ${textColor};
+          background-color: var(--grey-10);
         }
         .themeBtn {
           background-color: transparent;
           border: none;
           cursor: pointer;
-          height: 50px;
-          width: 50px;
+          height: 40px;
+          width: 40px;
         }
       `}</style>
     </header>
