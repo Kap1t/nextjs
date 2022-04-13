@@ -22,7 +22,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   } catch (error) {
     console.log("error");
     return {
-      props: { topics: undefined },
+      props: { topics: null },
       // revalidate: 10,
     };
   }
@@ -33,7 +33,7 @@ interface Props {
 }
 
 const MainComponent: NextPage<Props> = ({ topics }) => {
-  if (topics === undefined) {
+  if (topics === null) {
     return <div>Загрузка 0</div>;
   }
   return (
