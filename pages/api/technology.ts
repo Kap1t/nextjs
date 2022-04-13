@@ -1,0 +1,50 @@
+import type { NextApiRequest, NextApiResponse } from "next";
+
+export interface ITechnology {
+  _id: string;
+  ref: string;
+  title: string;
+  imageRef: string;
+  description: string;
+}
+
+const technology: ITechnology[] = [
+  {
+    _id: "1",
+    ref: "javascript",
+    title: "JavaScript",
+    imageRef: "javascript",
+    description:
+      "Мультипарадигменный язык программирования. Поддерживает объектно-ориентированный, императивный и функциональный стили. Является реализацией спецификации ECMAScript.",
+  },
+  {
+    _id: "2",
+    ref: "react",
+    title: "React",
+    imageRef: "react",
+    description:
+      "React.js — это JavaScript-библиотека для разработки пользовательского интерфейса.",
+  },
+  {
+    _id: "3",
+    ref: "nextjs",
+    title: "NextJs",
+    imageRef: "nextjs",
+    description:
+      "Next.js — открытый JavaScript фреймворк, созданный поверх React.js для создания веб-приложений...",
+  },
+  {
+    _id: "4",
+    ref: "typescript",
+    title: "TypeScript",
+    imageRef: "typescript",
+    description:
+      "TypeScript — язык программирования, представленный Microsoft в 2012 году и позиционируемый как средство",
+  },
+];
+
+export default function topics(req: NextApiRequest, res: NextApiResponse<ITechnology[]>) {
+  if (req.method === "GET") {
+    res.status(200).json(technology);
+  }
+}

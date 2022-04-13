@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import React, { useState } from "react";
 import { MdLightMode, MdNightlight } from "react-icons/md";
-import { IoHomeSharp } from "react-icons/io5";
+import { IoBook } from "react-icons/io5";
 
 const Header: NextPage = () => {
   const [theme, setTheme] = useState("dark");
@@ -12,11 +12,15 @@ const Header: NextPage = () => {
   return (
     <header>
       <nav>
-        <Link href={"/javascript/post/arrays"}>Массивы</Link>
-        <Link href={"/javascript/post/objects"}>Объекты</Link>
+        <Link href={"/javascript/post/arrays"}>
+          <a> Массивы</a>
+        </Link>
+        <Link href={"/javascript/post/objects"}>
+          <a>Объекты</a>
+        </Link>
         <Link href={"/"}>
-          <a>
-            <IoHomeSharp size={"35px"} />
+          <a style={{ marginTop: "2px" }}>
+            learn <IoBook size={"35px"} style={{ verticalAlign: "middle" }} /> {" web"}
           </a>
         </Link>
         <button
@@ -47,6 +51,7 @@ const Header: NextPage = () => {
           align-items: center;
           background-color: var(--grey-10);
         }
+
         .themeBtn {
           background-color: transparent;
           border: none;

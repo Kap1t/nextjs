@@ -6,9 +6,9 @@ import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 
-import MainLayout from "../../../components/MainLayout";
+import MainLayout from "../../components/MainLayout";
 
-import { Data } from "../../api/datas";
+import { Data } from "../api/datas";
 
 export const getStaticPaths = async () => {
   try {
@@ -32,32 +32,32 @@ export const getStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
     const response = await fetch(`${process.env.HOST}/api/datas`);
-    const datas4 = await response.json();
+    const topics = await response.json();
 
-    if (!datas4) {
+    if (!topics) {
       return {
         notFound: true,
       };
     }
     return {
-      props: { datas4 },
+      props: { topics },
     };
   } catch (error) {
     return {
-      props: { datas4: null },
+      props: { topics: null },
       // revalidate: 10,
     };
   }
 };
 
 interface Props {
-  datas4: Data[];
+  topics: Data[];
 }
 
-const Post: NextPage<Props> = ({ datas4 }) => {
+const Post: NextPage<Props> = ({ topics }) => {
   const router = useRouter();
 
-  if (datas4.length === 0) {
+  if (topics.length === 0) {
     return <div>Загрузка</div>;
   }
   return (
@@ -65,7 +65,7 @@ const Post: NextPage<Props> = ({ datas4 }) => {
       <section className="article">
         <h1>Методы массивов</h1>
 
-        {datas4.map((data, index) => {
+        {topics.map((data, index) => {
           return (
             <React.Fragment key={index}>
               <h2>{data.header}</h2>
@@ -102,10 +102,10 @@ const Post: NextPage<Props> = ({ datas4 }) => {
 
 // export const getServerSideProps: GetServerSideProps = async (context) => {
 //   const response = await fetch(`${process.env.HOST}/api/datas`);
-//   const datas4 = await response.json();
+//   const topics = await response.json();
 //   console.log(context.query.id);
 //   return {
-//     props: { datas4 },
+//     props: { topics },
 //   };
 // };
 
