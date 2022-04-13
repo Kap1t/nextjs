@@ -8,7 +8,7 @@ export interface ITechnology {
   description: string;
 }
 
-const technology: ITechnology[] = [
+export const technology: ITechnology[] = [
   {
     _id: "1",
     ref: "javascript",

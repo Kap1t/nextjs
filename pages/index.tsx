@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 import MainLayout from "../components/MainLayout";
 
-import { ITechnology } from "./api/technology";
+import { ITechnology, technology } from "./api/technology";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
@@ -20,8 +20,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
       props: { topics },
     };
   } catch (error) {
+    console.log("error");
     return {
-      props: { topics: null },
+      props: { topics: technology },
       // revalidate: 10,
     };
   }
@@ -32,8 +33,8 @@ interface Props {
 }
 
 const MainComponent: NextPage<Props> = ({ topics }) => {
-  if (topics === null) {
-    return <div>Загрузка</div>;
+  if (topics.length === 0) {
+    return <div>Загрузка 0</div>;
   }
   return (
     <MainLayout title={"Learn web"}>
