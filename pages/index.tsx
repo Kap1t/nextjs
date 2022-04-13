@@ -22,7 +22,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   } catch (error) {
     console.log("error");
     return {
-      props: { topics: technology },
+      props: { topics: [] },
       // revalidate: 10,
     };
   }
