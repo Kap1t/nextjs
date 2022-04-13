@@ -12,12 +12,12 @@ const Header: NextPage = () => {
   return (
     <header>
       <nav>
-        <Link href={"/javascript/post/arrays"}>
+        {/* <Link href={"/javascript/post/arrays"}>
           <a> Массивы</a>
         </Link>
         <Link href={"/javascript/post/objects"}>
           <a>Объекты</a>
-        </Link>
+        </Link> */}
         <Link href={"/"}>
           <a style={{ marginTop: "2px" }}>
             learn <IoBook size={"35px"} style={{ verticalAlign: "middle" }} /> {" web"}
@@ -49,7 +49,8 @@ const Header: NextPage = () => {
           display: flex;
           justify-content: center;
           align-items: center;
-          background-color: var(--grey-10);
+          background-color: var(--header-background);
+          border-bottom: 2px solid var(--border);
         }
 
         .themeBtn {

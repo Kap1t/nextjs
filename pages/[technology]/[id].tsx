@@ -112,13 +112,4 @@ const Post: NextPage<Props> = ({ topics }) => {
   );
 };
 
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   const response = await fetch(`${process.env.HOST}/api/datas`);
-//   const topics = await response.json();
-//   console.log(context.query.id);
-//   return {
-//     props: { topics },
-//   };
-// };
-
 export default Post;

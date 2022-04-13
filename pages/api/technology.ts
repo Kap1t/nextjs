@@ -13,7 +13,7 @@ export const technology: ITechnology[] = [
     _id: "1",
     ref: "javascript",
     title: "JavaScript",
-    imageRef: "javascript",
+    imageRef: "/javascript",
     description:
       "Мультипарадигменный язык программирования. Поддерживает объектно-ориентированный, императивный и функциональный стили. Является реализацией спецификации ECMAScript.",
   },
@@ -21,7 +21,7 @@ export const technology: ITechnology[] = [
     _id: "2",
     ref: "react",
     title: "React",
-    imageRef: "react",
+    imageRef: "/react.png",
     description:
       "React.js — это JavaScript-библиотека для разработки пользовательского интерфейса.",
   },
@@ -29,7 +29,7 @@ export const technology: ITechnology[] = [
     _id: "3",
     ref: "nextjs",
     title: "NextJs",
-    imageRef: "nextjs",
+    imageRef: "/nextjs",
     description:
       "Next.js — открытый JavaScript фреймворк, созданный поверх React.js для создания веб-приложений...",
   },
@@ -37,7 +37,7 @@ export const technology: ITechnology[] = [
     _id: "4",
     ref: "typescript",
     title: "TypeScript",
-    imageRef: "typescript",
+    imageRef: "/typescript",
     description:
       "TypeScript — язык программирования, представленный Microsoft в 2012 году и позиционируемый как средство",
   },

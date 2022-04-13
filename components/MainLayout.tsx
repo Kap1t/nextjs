@@ -17,8 +17,8 @@ const MainLayout: NextPage<Props> = ({ children, title }) => {
         {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
       <Header />
-      <main>{children}</main>
-      <footer>подвад</footer>
+      <main className="main">{children}</main>
+      <footer className="footer">подвад</footer>
     </>
   );
 };

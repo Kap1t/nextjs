@@ -1,58 +1,70 @@
 import type { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
+import Image from "next/image";
 
 import React from "react";
 import MainLayout from "../components/MainLayout";
+import styles from "../styles/MainComponent.module.scss";
 
-import { ITechnology, technology } from "./api/technology";
+import { ITechnology } from "./api/technology";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
     const response = await fetch(`${process.env.HOST}/api/technology`);
-    const topics = await response.json();
+    const technology = await response.json();
 
-    if (!topics) {
+    if (!technology) {
       return {
         notFound: true,
       };
     }
     return {
-      props: { topics },
+      props: { technology },
     };
   } catch (error) {
     console.log("error");
     return {
-      props: { topics: [] },
+      props: { technology: [] },
       // revalidate: 10,
     };
   }
 };
 
 interface Props {
-  topics: ITechnology[];
+  technology: ITechnology[];
 }
 
-const MainComponent: NextPage<Props> = ({ topics }) => {
-  if (topics.length === 0) {
+const MainComponent: NextPage<Props> = ({ technology }) => {
+  if (technology.length === 0) {
     return <div>Загрузка 0</div>;
   }
   return (
     <MainLayout title={"Learn web"}>
-      <section className="article">
-        <h1>Методы массивов</h1>
-
-        {topics.map((data) => {
-          return (
-            <div key={data._id}>
-              <Link href={"/" + data.ref}>
+      <section className={styles.section}>
+        <div className={styles.about}>
+          <h1 className={styles.h1}>Learn web облегчает изучение React.js разработки.</h1>
+          <h1>Изучите React.js и его экосистему — быстро и очень легко.</h1>
+        </div>
+        <div className={styles.technologyBlock}>
+          {technology.map((oneTechnology) => {
+            return (
+              <Link href={"/" + oneTechnology.ref} key={oneTechnology._id}>
                 <a>
-                  <h3>{data.title}</h3>
-                  <p>{data.description}</p>
+                  <div className={styles.oneTechnology}>
+                    <h3>{oneTechnology.title}</h3>
+                    <Image
+                      src={oneTechnology.imageRef}
+                      width="150"
+                      height="150"
+                      alt={oneTechnology.title}
+                    ></Image>
+                    <p>{oneTechnology.description}</p>
+                  </div>
                 </a>
               </Link>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </section>
     </MainLayout>
   );
