@@ -32,7 +32,7 @@ interface Props {
 }
 
 const MainComponent: NextPage<Props> = ({ topics }) => {
-  if (topics.length === 0) {
+  if (topics === null) {
     return <div>Загрузка</div>;
   }
   return (
