@@ -12,11 +12,23 @@ import { Data } from "../api/datas";
 
 export const getStaticPaths = async () => {
   try {
+    const response2 = await fetch(`${process.env.HOST}/api/technology`);
+    const technology = await response2.json();
     const response = await fetch(`${process.env.HOST}/api/articlesList`);
     const datas = await response.json();
-    const paths = datas.map((data: any) => ({
-      params: { id: data.ref },
-    }));
+    const paths: any = [];
+    for (let index = 0; index < technology.length; index++) {
+      const oneTechnology = technology[index];
+
+      for (let index = 0; index < datas.length; index++) {
+        const oneData = datas[index];
+        paths.push({ params: { technology: oneTechnology.ref, id: oneData.ref } });
+      }
+    }
+
+    // const paths = datas.map((data: any) => ({
+    //   params: { technology: "javascript", id: data.ref },
+    // }));
 
     return {
       paths,
