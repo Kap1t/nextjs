@@ -21,7 +21,7 @@ export const technology: ITechnology[] = [
     _id: "2",
     ref: "react",
     title: "React",
-    imageRef: "/react.png",
+    imageRef: "/static/react.png",
     description:
       "React.js — это JavaScript-библиотека для разработки пользовательского интерфейса.",
   },
