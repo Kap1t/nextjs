@@ -53,10 +53,11 @@ const MainComponent: NextPage<Props> = ({ technology }) => {
                   <div className={styles.oneTechnology}>
                     <h3>{oneTechnology.title}</h3>
                     <Image
-                      src={oneTechnology.imageRef}
+                      src="/static/react.png"
                       width="150"
                       height="150"
                       alt={oneTechnology.title}
+                      // placeholder="blur"
                     ></Image>
                     <p>{oneTechnology.description}</p>
                   </div>
