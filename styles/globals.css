@@ -4,6 +4,7 @@
   --border: #444444;
   --border-hover: #cecece;
   --text: #e2e3e7;
+  --shadow: rgba(255, 255, 255, 0.25);
   --grey-11: #292c31;
   --grey-10: #232529;
 
@@ -15,9 +16,9 @@
   --border: #e6e6e6;
   --border-hover: #cecece;
   --text: #232529;
+  --shadow: rgba(0, 0, 0, 0.25);
   --grey-11: #e7e7e2;
   --grey-10: #909196;
-  --text: #232529;
 }
 
 *,

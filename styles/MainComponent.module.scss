@@ -15,7 +15,7 @@
   margin-top: 70px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 15px;
   text-align: center;
 }
 
@@ -35,6 +35,7 @@
 
   &:hover {
     border: 1px solid var(--border-hover);
+    box-shadow: 0 5px 10px var(--shadow);
   }
 }
 
