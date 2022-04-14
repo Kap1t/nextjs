@@ -1,0 +1,39 @@
+.article {
+  margin: 70px auto 0;
+  padding: 0 10px;
+  max-width: 1000px;
+  background-color: var(--grey-10);
+}
+
+
+.ol1 {
+  counter-reset: list;
+
+  .li1:before {
+    counter-increment: list;
+    content: "";
+  }
+
+  ol {
+    counter-reset: list;
+    columns: 3;
+
+    li {
+      display: block;
+    }
+
+    li:before {
+      counter-increment: list;
+      content: counters(list, ".") " ";
+    }
+  }
+}
+
+.a {
+  color: #84a0ef;
+  margin-left: 10px;
+
+  &:hover {
+    color: rgb(0, 65, 204);
+  }
+}

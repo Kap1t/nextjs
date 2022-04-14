@@ -14,6 +14,12 @@ const topic: Topic[] = [
     list: [
       { name: "Методы массивов", ref: "arrays" },
       { name: "Объекты", ref: "objects" },
+      { name: "Методы массивов", ref: "arrays" },
+      { name: "Объекты", ref: "objects" },
+      { name: "Методы массивов", ref: "arrays" },
+      { name: "Объекты", ref: "objects" },
+      { name: "Методы массивов", ref: "arrays" },
+      { name: "Объекты", ref: "objects" },
     ],
   },
   {

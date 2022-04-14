@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 
 import MainLayout from "../components/MainLayout";
+import styles from "../styles/Technology.module.scss";
 
 import { ITechnology } from "./api/technology";
 import { Topic } from "./api/topic";
@@ -62,21 +63,26 @@ const Technology: NextPage<Props> = ({ topics }) => {
   }
   return (
     <MainLayout title={router.query.technology || "react"}>
-      <section className="article">
+      <section className={styles.article}>
         <h1>Методы массивов</h1>
-
-        {topics.map((topic, index) => {
-          return (
-            <div key={index}>
-              <h3>{topic.header}</h3>
-              {topic.list.map((link) => (
-                <Link href={`${router.asPath}/${link.ref}`} key={link.ref}>
-                  <a>{link.name}</a>
-                </Link>
-              ))}
-            </div>
-          );
-        })}
+        <ol className={styles.ol1}>
+          {topics.map((topic, index) => {
+            return (
+              <li key={index} className={styles.li1}>
+                <h3>{topic.header}</h3>
+                <ol>
+                  {topic.list.map((link) => (
+                    <li key={link.ref}>
+                      <Link href={`${router.asPath}/${link.ref}`} key={link.ref}>
+                        <a className={styles.a}>{link.name}</a>
+                      </Link>
+                    </li>
+                  ))}
+                </ol>
+              </li>
+            );
+          })}
+        </ol>
       </section>
     </MainLayout>
   );
