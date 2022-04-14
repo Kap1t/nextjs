@@ -36,6 +36,32 @@ const topic: Topic[] = [
       { name: "Наследование классов", ref: "class-inheritance" },
     ],
   },
+  {
+    header: "Основы JavaScrip",
+    list: [
+      { name: "Методы массивов", ref: "arrays" },
+      { name: "Объекты", ref: "objects" },
+      { name: "Методы массивов", ref: "arrays" },
+      { name: "Объекты", ref: "objects" },
+      { name: "Методы массивов", ref: "arrays" },
+      { name: "Объекты", ref: "objects" },
+      { name: "Методы массивов", ref: "arrays" },
+      { name: "Объекты", ref: "objects" },
+    ],
+  },
+  {
+    header: "Основы JavaScrip",
+    list: [
+      { name: "Методы массивов", ref: "arrays" },
+      { name: "Объекты", ref: "objects" },
+      { name: "Методы массивов", ref: "arrays" },
+      { name: "Объекты", ref: "objects" },
+      { name: "Методы массивов", ref: "arrays" },
+      { name: "Объекты", ref: "objects" },
+      { name: "Методы массивов", ref: "arrays" },
+      { name: "Объекты", ref: "objects" },
+    ],
+  },
 ];
 
 export default function topics(req: NextApiRequest, res: NextApiResponse<Topic[]>) {

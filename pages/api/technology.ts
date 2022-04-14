@@ -45,6 +45,7 @@ export const technology: ITechnology[] = [
 
 export default function topics(req: NextApiRequest, res: NextApiResponse<ITechnology[]>) {
   if (req.method === "GET") {
+    console.log(req.query);
     res.status(200).json(technology);
   }
 }

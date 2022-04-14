@@ -34,6 +34,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   try {
     const response = await fetch(`${process.env.HOST}/api/topic`);
     const topics: Topic[] = await response.json();
+    console.log(context.params?.technology);
 
     if (!topics) {
       return {
@@ -57,23 +58,22 @@ interface Props {
 
 const Technology: NextPage<Props> = ({ topics }) => {
   const router = useRouter();
-
   if (topics.length === 0) {
     return <div>Загрузка</div>;
   }
   return (
     <MainLayout title={router.query.technology || "react"}>
       <section className={styles.article}>
-        <h1>Методы массивов</h1>
+        <h1 className={styles.h1}>{router.query.technology}</h1>
         <ol className={styles.ol1}>
           {topics.map((topic, index) => {
             return (
               <li key={index} className={styles.li1}>
-                <h3>{topic.header}</h3>
+                <h3 className={styles.h3}>{topic.header}</h3>
                 <ol>
                   {topic.list.map((link) => (
                     <li key={link.ref}>
-                      <Link href={`${router.asPath}/${link.ref}`} key={link.ref}>
+                      <Link href={`${router.asPath}/${link.ref}`}>
                         <a className={styles.a}>{link.name}</a>
                       </Link>
                     </li>

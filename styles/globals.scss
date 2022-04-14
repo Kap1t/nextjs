@@ -5,6 +5,8 @@
   --border-hover: #cecece;
   --text: #e2e3e7;
   --shadow: rgba(255, 255, 255, 0.25);
+  --link: #84a0ef;
+  --link-hover: #0041cc;
   --grey-11: #292c31;
   --grey-10: #232529;
 
@@ -17,6 +19,8 @@
   --border-hover: #cecece;
   --text: #232529;
   --shadow: rgba(0, 0, 0, 0.25);
+  --link: #84a0ef;
+  --link-hover: #0041cc;
   --grey-11: #e7e7e2;
   --grey-10: #909196;
 }
@@ -29,6 +33,7 @@
 
 body,
 ul,
+ol,
 li {
   margin: 0;
   padding: 0;
@@ -88,8 +93,27 @@ a {
   color: var(--text);
 }
 
-.article {
-  margin: 0 auto;
-  max-width: 1000px;
-  background-color: var(--grey-10);
+
+// Scroll
+
+::-webkit-scrollbar {
+  width: 17px;
+
+  &-track {
+    background: #181818;
+  }
+
+  &-thumb {
+    background: #717171;
+    border: 4px solid #181818;
+    border-radius: 8px;
+
+    &:hover {
+      background: #585858;
+    }
+
+    &:active {
+      background: #3a3939;
+    }
+  }
 }

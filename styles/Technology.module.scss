@@ -1,11 +1,19 @@
 .article {
   margin: 70px auto 0;
-  padding: 0 10px;
+  padding: 0 15px;
   max-width: 1000px;
-  background-color: var(--grey-10);
+}
+
+.h1 {
+  text-align: center;
+}
+
+.h3 {
+  margin: 15px 0 15px;
 }
 
 .ol1 {
+  margin-top: 35px;
   counter-reset: list;
 
   .li1:before {
@@ -29,10 +37,27 @@
 }
 
 .a {
-  color: #84a0ef;
+  color: var(--link);
   margin-left: 10px;
 
   &:hover {
-    color: rgb(0, 65, 204);
+    color: var(--link-hover);
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .ol1 {
+    ol {
+      columns: 2;
+    }
+  }
+}
+
+
+@media screen and (max-width: 600px) {
+  .ol1 {
+    ol {
+      columns: 1;
+    }
   }
 }
