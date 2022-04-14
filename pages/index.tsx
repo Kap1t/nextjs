@@ -54,7 +54,7 @@ const MainComponent: NextPage<Props> = ({ technology }) => {
                     <h3>{oneTechnology.title}</h3>
                     <Image
                       src={oneTechnology.imageRef}
-                      width="150"
+                      width="250"
                       height="150"
                       alt={oneTechnology.title}
                       // placeholder="blur"
