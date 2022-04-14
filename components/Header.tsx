@@ -1,16 +1,24 @@
 import { NextPage } from "next/types";
 import Link from "next/link";
-// import Router from "next/router";
 
-import React, { useState } from "react";
-import { MdLightMode, MdNightlight } from "react-icons/md";
+import React, { useEffect, useState } from "react";
+import { MdLightMode, MdOutlineModeNight } from "react-icons/md";
 import { IoBook } from "react-icons/io5";
 
 const Header: NextPage = () => {
   const [theme, setTheme] = useState("dark");
+  useEffect(() => {
+    if (localStorage.getItem("theme") === "ligth") {
+      document.body.setAttribute("light", "");
+      setTheme("light");
+    } else {
+      document.body.removeAttribute("light");
+      setTheme("dark");
+    }
+  }, []);
 
   return (
-    <header>
+    <header className=".header">
       <nav>
         {/* <Link href={"/javascript/post/arrays"}>
           <a> Массивы</a>
@@ -29,28 +37,42 @@ const Header: NextPage = () => {
             if (theme === "dark") {
               document.body.setAttribute("light", "");
               setTheme("light");
+              localStorage.setItem("theme", "ligth");
             }
             if (theme === "light") {
               document.body.removeAttribute("light");
               setTheme("dark");
+              localStorage.setItem("theme", "dark");
             }
           }}
         >
           {theme === "dark" ? (
-            <MdLightMode size="25px" color="#ffe600" />
+            <MdLightMode size="25px" color="#ffee00" />
           ) : (
-            <MdNightlight size="25px" color="#ffe600" style={{ transform: "rotateZ(-17deg)" }} />
+            <MdOutlineModeNight size="25px" style={{ transform: "rotateZ(-197deg)" }} />
           )}
         </button>
       </nav>
       <style jsx>{`
+        header {
+        }
         nav {
+          width: 100%;
           height: 60px;
           display: flex;
           justify-content: center;
           align-items: center;
           background-color: var(--header-background);
-          border-bottom: 2px solid var(--border);
+          // border-bottom: 2px solid var(--border);
+          position: relative;
+        }
+        nav:before {
+          position: absolute;
+          top: 65px;
+          left: 10%;
+          width: 80%;
+          border-top: 1px solid var(--border);
+          content: "";
         }
 
         .themeBtn {

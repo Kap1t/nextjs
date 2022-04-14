@@ -1,6 +1,7 @@
 import Head from "next/head";
 
 import { NextPage } from "next/types";
+import Footer from "./Footer";
 import Header from "./Header";
 
 interface Props {
@@ -18,7 +19,7 @@ const MainLayout: NextPage<Props> = ({ children, title }) => {
       </Head>
       <Header />
       <main className="main">{children}</main>
-      <footer className="footer">подвад</footer>
+      <Footer></Footer>
     </>
   );
 };
