@@ -10,9 +10,9 @@ import { ITechnology } from "./api/technology";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
-    const response = await fetch(`${process.env.HOST}/api/technology`);
+    // const response = await fetch(`${process.env.HOST}/api/technology`);
+    const response = await fetch(`${process.env.HOST_API}/api/technology`);
     const technology = await response.json();
-
     if (!technology) {
       return {
         notFound: true,
@@ -36,7 +36,7 @@ interface Props {
 
 const MainComponent: NextPage<Props> = ({ technology }) => {
   if (technology.length === 0) {
-    return <div>Загрузка 0</div>;
+    return <div>Ошибка</div>;
   }
   return (
     <MainLayout title={"Learn web"}>

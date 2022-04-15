@@ -13,10 +13,11 @@ import Link from "next/link";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    const response = await fetch(`${process.env.HOST}/api/technology`);
-    const topics = await response.json();
-    const paths = topics.map((topic: any) => ({
-      params: { technology: topic.ref },
+    // const response = await fetch(`${process.env.HOST}/api/technology`);
+    const response = await fetch(`${process.env.HOST_API}/api/technology`);
+    const technology = await response.json();
+    const paths = technology.map((oneTechnology: any) => ({
+      params: { technology: oneTechnology.ref },
     }));
 
     return {
@@ -32,7 +33,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
-    const response = await fetch(`${process.env.HOST}/api/topic`);
+    // const response = await fetch(`${process.env.HOST}/api/topic`);
+    const response = await fetch(
+      `${process.env.HOST_API}/api/technology/${context.params?.technology}`
+    );
     const topics: Topic[] = await response.json();
     console.log(context.params?.technology);
 
