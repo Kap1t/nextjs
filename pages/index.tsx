@@ -13,6 +13,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
     // const response = await fetch(`${process.env.HOST}/api/technology`);
     const response = await fetch(`${process.env.HOST_API}/api/technology`);
     const technology = await response.json();
+    console.log(technology);
+
     if (!technology) {
       return {
         notFound: true,

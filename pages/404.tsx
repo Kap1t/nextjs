@@ -1,7 +1,7 @@
 import { NextPage } from "next/types";
 import Router from "next/router";
 import { useEffect } from "react";
-import styles from "./404.module.scss";
+import styles from "../styles/404.module.scss";
 
 const Error: NextPage = () => {
   useEffect(() => {
