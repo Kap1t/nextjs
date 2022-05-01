@@ -28,7 +28,7 @@ const Login: NextPage = () => {
     const req = async () => {
       try {
         await userApi.login(formData.email, formData.password);
-        router.reload();
+        // router.reload();
       } catch (error: any) {
         if (error.response?.status === 401) {
           setReqError("Неверное имя или пароль");
