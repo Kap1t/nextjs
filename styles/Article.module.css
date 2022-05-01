@@ -1,0 +1,23 @@
+.articleSection {
+  margin: 70px auto 0;
+  padding: 0 15px;
+  max-width: 1000px;
+}
+
+.pre {
+  font-size: 1.8rem;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 500px;
+  background-color: #5d5d6d;
+  color: #fff;
+}
+
+@media screen and (max-width: 900px) {
+  .pre {
+    font-size: 1.5rem;
+  }
+}
+/*# sourceMappingURL=Article.module.css.map */

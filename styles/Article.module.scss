@@ -1,0 +1,79 @@
+.articleSection {
+  margin: 50px auto 0;
+  padding: 0 15px;
+  max-width: 1000px;
+  // background-color: red;
+}
+
+.pre {
+  font-size: 1.8rem;
+}
+
+.textarea {
+  margin-top: 40px;
+  width: 100%;
+  min-height: 500px;
+  background-color: rgb(93, 93, 109);
+  color: #fff
+}
+
+.submitBtn {
+  margin-top: 15px;
+  height: 35px;
+  min-width: 120px;
+  border-radius: 5px;
+  border: 1px solid var(--submit-btn-text);
+  cursor: pointer;
+  color: var(--submit-btn-text);
+  background-color: var(--submit-btn);
+  transition: all 0.4s;
+
+  &:hover {
+    background-color: var(--submit-btn-text);
+    border: 1px solid var(--submit-btn);
+    color: var(--submit-btn);
+  }
+}
+
+.ReactMarkdownBlock {
+  p {
+    margin-top: 15px;
+  }
+
+  h2 {
+    margin-top: 15px;
+  }
+
+  .createdAt {
+    padding: 0 15px;
+    text-align: right;
+    font-size: 1.4rem;
+    color: rgb(146, 146, 146);
+  }
+
+  p,
+  ul {
+    code {
+      color: #e2e3e7;
+      padding: 5px 10px;
+      border-radius: 5px;
+      background-color: #41455c;
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .pre {
+    font-size: 1.5rem;
+  }
+
+  .articleSection {
+    margin: 30px auto 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .pre {
+    font-size: 1.4rem;
+  }
+}

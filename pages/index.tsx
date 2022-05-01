@@ -22,6 +22,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     }
     return {
       props: { technology },
+      revalidate: 40,
     };
   } catch (error) {
     console.log("error");

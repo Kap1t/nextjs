@@ -13,6 +13,7 @@ export const ThemeBtn: NextPage = () => {
       setTheme("dark");
     }
   }, []);
+
   return (
     <button
       className="themeBtn"

@@ -1,19 +1,21 @@
 import type { NextPage } from "next";
-import { GetServerSideProps, GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 import MainLayout from "../../components/MainLayout";
+import styles from "../../styles/Article.module.scss";
 
-import { Data } from "../api/datas";
+import useIsModaratorReq from "../../Hooks/useIsModeratorReq";
+import ArticleModerator from "../../components/ArticleModerator";
 
-export const getStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   try {
     const response2 = await fetch(`${process.env.HOST_API}/api/technology`);
     const technology = await response2.json();
@@ -45,7 +47,7 @@ export const getStaticPaths = async () => {
         }
       }
     }
-    console.log(paths);
+    // console.log(paths);
 
     return {
       paths,
@@ -54,7 +56,8 @@ export const getStaticPaths = async () => {
   } catch (error) {}
   return {
     paths: [],
-    fallback: false,
+    // fallback: false,
+    fallback: "blocking",
   };
 };
 
@@ -64,8 +67,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
       `${process.env.HOST_API}/api/technology/${context.params?.topics}/${context.params?.article}`
     );
     const article = await response.json();
-    // console.log(article);
-
     if (!article) {
       return {
         notFound: true,
@@ -73,6 +74,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     }
     return {
       props: { article },
+      revalidate: 120,
     };
   } catch (error) {
     return {
@@ -82,63 +84,22 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 };
 
+const date = (dateFromApi: string) => {
+  return new Date(dateFromApi).toLocaleString();
+};
 interface Props {
   article: {
+    _id: string;
     ref: string;
     content: string;
+    updatedAt: string;
   };
 }
 
-const Post: NextPage<Props> = ({ article }) => {
+const Article: NextPage<Props> = ({ article }) => {
   const router = useRouter();
-  const markdownString2 = `Here is some JavaScript code:
-
-  ~~~js
-  export const getStaticProps: GetStaticProps = async (context) => {
-    try {
-      const topics = await response.json();
-  
-      if (!topics) {
-        return {
-          notFound: true,
-        };
-      }
-      return {
-        props: { topics },
-      };
-    } catch (error) {
-      return {
-        props: { topics: null },
-        // revalidate: 10,
-      };
-    }
-  };
-  ~~~
-  # HTML 
-  **HTML**
-  - Первый пункт.
-  - Второй пункт.
-  * Третий пункт.
-    * nested item
-  1. Первый **пункт**.
-  2. Второй пункт.
-  3. Третий пункт.
-  4. nested
-
-  ~~Зачёркнутый текст.~~
-  - [ ] Невыполненная задача
-- [ ] Невыполненная задача
-- [X] Выполненная задача  
-
-> blockquote
-
-dasdsa
-
-![img]()
-  ~~~html
-  <p><em>c</em></p>
-  ~~~
-  `;
+  const isModarator = useIsModaratorReq();
+  console.log(isModarator);
 
   const [markdownString, setMarkdownString] = useState(article?.content);
 
@@ -146,56 +107,53 @@ dasdsa
     return <div>Загрузка</div>;
   }
   return (
-    <MainLayout title={router.query.topic || "react"}>
-      <section className="article">
-        <h1>
-          Добавить к ref arrays сontent# arrays еще и technolgy для того, чтоыбы создавать
-          typescript/objects и JavaScript/objects или не надо, чтобы не создать дважды
-          JavaScript/objects
-        </h1>
-        <h1>
-          поменять структуру топикс на technology : javascript, header : Основы JavaScrip, article :
-          name : Методы массивов, ref: article это упростит перебор динамических роутов и
-          редактирование
-        </h1>
-        {/* <div>{article.content}</div> */}
-        <ReactMarkdown
-          remarkPlugins={[remarkGfm]}
-          components={{
-            code({ node, inline, className, children, ...props }) {
-              const match = /language-(\w+)/.exec(className || "");
-              return !inline && match ? (
-                <SyntaxHighlighter
-                  style={dracula}
-                  language={match[1]}
-                  PreTag="div"
-                  {...props}
-                  showLineNumbers
-                >
-                  {String(children).replace(/\n$/, "")}
-                </SyntaxHighlighter>
-              ) : (
-                <code className={className} {...props}>
-                  {children}
-                </code>
-              );
-            },
-          }}
-        >
-          {markdownString}
-        </ReactMarkdown>
-        <textarea
-          name="textarea"
-          value={markdownString}
-          cols={130}
-          rows={40}
-          onChange={(e) => {
-            setMarkdownString(e.target.value);
-          }}
-        ></textarea>
+    //! Добавить в article header название страницы в бд
+    <MainLayout title={router.query.article || "react"}>
+      <section className={styles.articleSection}>
+        <div className={styles.ReactMarkdownBlock}>
+          <div className={styles.createdAt}>
+            {"Обновлено: " + new Date(article.updatedAt).toLocaleDateString()}
+          </div>
+          <ReactMarkdown
+            skipHtml={false}
+            remarkPlugins={[remarkGfm]}
+            components={{
+              code({ node, inline, className, children, ...props }) {
+                const match = /language-(\w+)/.exec(className || "");
+                return !inline && match ? (
+                  <SyntaxHighlighter
+                    style={dracula}
+                    customStyle={{ padding: "15px 0" }}
+                    className={styles.pre}
+                    language={match[1]}
+                    PreTag="div"
+                    {...props}
+                    showLineNumbers
+                  >
+                    {String(children).replace(/\n$/, "")}
+                  </SyntaxHighlighter>
+                ) : (
+                  <code className={className} {...props}>
+                    {children}
+                  </code>
+                );
+              },
+            }}
+          >
+            {markdownString}
+          </ReactMarkdown>
+        </div>
+
+        {isModarator && (
+          <ArticleModerator
+            article={article}
+            markdownString={markdownString}
+            setMarkdownString={setMarkdownString}
+          />
+        )}
       </section>
     </MainLayout>
   );
 };
 
-export default Post;
+export default Article;

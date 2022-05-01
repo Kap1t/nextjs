@@ -1,0 +1,62 @@
+.section {
+  margin: 70px auto 0;
+  padding: 0 15px;
+  max-width: 1000px;
+}
+
+.form {
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+
+  input {
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid var(--input-border);
+    height: 20px;
+    padding: 0 7px;
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: rgb(197, 2, 2);
+    font-size: 1.5rem;
+  }
+
+  a {
+    color: var(--link);
+
+    &:hover {
+      color: var(--link-hover);
+    }
+  }
+
+  button {
+    margin: 7px auto 0;
+    height: 35px;
+    min-width: 120px;
+    border-radius: 5px;
+    border: 1px solid var(--submit-btn-text);
+    cursor: pointer;
+    color: var(--submit-btn-text);
+    background-color: var(--submit-btn);
+    transition: all 0.4s;
+
+    &:hover {
+      background-color: var(--submit-btn-text);
+      border: 1px solid var(--submit-btn);
+      color: var(--submit-btn);
+    }
+  }
+
+  .pLR {
+    color: var(--text);
+    margin-top: 15px;
+  }
+
+  .pError {
+    text-align: center;
+  }
+
+}

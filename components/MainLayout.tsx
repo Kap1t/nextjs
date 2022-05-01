@@ -19,7 +19,7 @@ const MainLayout: NextPage<Props> = ({ children, title }) => {
       </Head>
       <Header />
       <main className="main">{children}</main>
-      <Footer></Footer>
+      <Footer />
     </>
   );
 };

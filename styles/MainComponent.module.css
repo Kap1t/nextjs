@@ -1,0 +1,61 @@
+.section {
+  margin: 0 auto;
+  margin-top: 50px;
+  padding: 0 15px;
+  max-width: 1000px;
+}
+
+.about {
+  padding: 20px 15px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+}
+
+.technologyBlock {
+  margin-top: 70px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  text-align: center;
+}
+
+.oneTechnology {
+  height: 350px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  -webkit-transition: border .2s ease, -webkit-box-shadow .2s ease;
+  transition: border .2s ease, -webkit-box-shadow .2s ease;
+  transition: box-shadow .2s ease, border .2s ease;
+  transition: box-shadow .2s ease, border .2s ease, -webkit-box-shadow .2s ease;
+}
+
+.oneTechnology h3 {
+  padding-top: 25px;
+}
+
+.oneTechnology p {
+  padding: 10px 10px 0;
+}
+
+.oneTechnology:hover {
+  border: 1px solid var(--border-hover);
+  -webkit-box-shadow: 0 5px 10px var(--shadow);
+          box-shadow: 0 5px 10px var(--shadow);
+}
+
+@media screen and (max-width: 900px) {
+  .technologyBlock {
+    -ms-grid-columns: (1fr)[2];
+        grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .technologyBlock {
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+  }
+}
+/*# sourceMappingURL=MainComponent.module.css.map */

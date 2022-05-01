@@ -1,6 +1,7 @@
 import { NextPage } from "next/types";
 import Link from "next/link";
 import ThemeBtn from "./ThemeBtn";
+import UserBtn from "./UserBtn";
 
 import { IoBook } from "react-icons/io5";
 
@@ -20,6 +21,7 @@ const Header: NextPage = () => {
           </a>
         </Link>
         <ThemeBtn />
+        <UserBtn />
       </nav>
       <style jsx>{`
         header {

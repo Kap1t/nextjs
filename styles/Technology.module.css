@@ -1,0 +1,62 @@
+.article {
+  margin: 70px auto 0;
+  padding: 0 15px;
+  max-width: 1000px;
+}
+
+.h1 {
+  text-align: center;
+}
+
+.h3 {
+  margin: 15px 0 15px;
+}
+
+.ol1 {
+  margin-top: 35px;
+  counter-reset: list;
+}
+
+.ol1 .li1:before {
+  counter-increment: list;
+  content: "";
+}
+
+.ol1 ol {
+  counter-reset: list;
+  -webkit-columns: 3;
+          columns: 3;
+}
+
+.ol1 ol li {
+  display: block;
+}
+
+.ol1 ol li:before {
+  counter-increment: list;
+  content: counters(list, ".") " ";
+}
+
+.a {
+  color: var(--link);
+  margin-left: 10px;
+}
+
+.a:hover {
+  color: var(--link-hover);
+}
+
+@media screen and (max-width: 900px) {
+  .ol1 ol {
+    -webkit-columns: 2;
+            columns: 2;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .ol1 ol {
+    -webkit-columns: 1;
+            columns: 1;
+  }
+}
+/*# sourceMappingURL=Technology.module.css.map */
