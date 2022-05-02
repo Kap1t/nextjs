@@ -31,10 +31,8 @@ const Login: NextPage = () => {
         const response = await userApi.login(formData.email, formData.password);
         // router.reload();
         ("%5B%22user%22%2C%22moderator%22%5D");
-        console.log(response);
-
-        // document.cookie = `token=${response.data.token}`;
-        // document.cookie = `roles=${response.data.roles}`;
+        document.cookie = `token=${response.data.token}`;
+        document.cookie = `roles=${response.data.roles}`;
       } catch (error: any) {
         if (error.response?.status === 401) {
           setReqError("Неверное имя или пароль");
@@ -53,7 +51,7 @@ const Login: NextPage = () => {
       <section className={styles.section}>
         <button
           onClick={async () => {
-            const res = await axios.get("/api/test", { withCredentials: true });
+            const res = await axios.post("/api/test");
           }}
         >
           TEST
