@@ -50,20 +50,6 @@ const Login: NextPage = () => {
   return (
     <MainLayout title="Вход">
       <section className={styles.section}>
-        <button
-          onClick={async () => {
-            const res = await axios.post("/api/test");
-          }}
-        >
-          TEST
-        </button>
-        <button
-          onClick={() => {
-            document.cookie = "plz=da; path=/";
-          }}
-        >
-          Set cookie on front-end
-        </button>
         {context.user.isAuth === true && <div style={{ textAlign: "center" }}>logged</div>}
         {context.user.isAuth === false && (
           <form
