@@ -10,7 +10,7 @@ export default function test(req: NextApiRequest, res: NextApiResponse) {
       "Set-Cookie",
       cookie.serialize("myToken", "dsadadawd2d24", {
         httpOnly: true,
-        secure: true,
+        secure: false,
         sameSite: "strict",
         maxAge: 60 * 20,
         path: "/",
