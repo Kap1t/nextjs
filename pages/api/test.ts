@@ -13,6 +13,7 @@ export default function test(req: NextApiRequest, res: NextApiResponse) {
         secure: true,
         sameSite: "strict",
         maxAge: 60 * 20,
+        path: "/",
       })
     );
     res.status(200).json({ message: "ok" });
