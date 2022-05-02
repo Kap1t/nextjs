@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import cookie from "cookie";
 import { userApi } from "../../Api/Api";
 
-export default async function test(req: NextApiRequest, res: NextApiResponse) {
+export default async function login(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     try {
       const response = await userApi.login(req.body.data.email, req.body.data.password);
@@ -15,12 +15,11 @@ export default async function test(req: NextApiRequest, res: NextApiResponse) {
         maxAge: 60 * 20,
         path: "/",
       });
-      const arr = [1, 4];
 
       const rolesStrCookie = cookie.serialize("rolesStr", `${response.data.roles.join(", ")}`, {
         // httpOnly: true,
-        secure: true,
-        sameSite: "strict",
+        // secure: true,
+        // sameSite: "strict",
         maxAge: 60 * 20,
         path: "/",
       });

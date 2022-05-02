@@ -30,7 +30,7 @@ const Login: NextPage = () => {
       try {
         // const response = await userApi.login(formData.email, formData.password);
         // router.reload();
-        const res = await axios.post("/api/test", {
+        const res = await axios.post("/api/login", {
           data: { email: formData.email, password: formData.password },
           withCredentials: true,
         });
