@@ -58,6 +58,13 @@ const Login: NextPage = () => {
         >
           TEST
         </button>
+        <button
+          onClick={() => {
+            document.cookie = "plz=da; path=/";
+          }}
+        >
+          Set cookie on front-end
+        </button>
         {context.user.isAuth === true && <div style={{ textAlign: "center" }}>logged</div>}
         {context.user.isAuth === false && (
           <form
