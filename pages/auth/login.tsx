@@ -28,11 +28,12 @@ const Login: NextPage = () => {
     setReqError("");
     const req = async () => {
       try {
-        const response = await userApi.login(formData.email, formData.password);
+        // const response = await userApi.login(formData.email, formData.password);
         // router.reload();
-        ("%5B%22user%22%2C%22moderator%22%5D");
-        document.cookie = `token=${response.data.token}`;
-        document.cookie = `roles=${response.data.roles}`;
+        const res = await axios.post("/api/test", {
+          data: { email: formData.email, password: formData.password },
+          withCredentials: true,
+        });
       } catch (error: any) {
         if (error.response?.status === 401) {
           setReqError("Неверное имя или пароль");
