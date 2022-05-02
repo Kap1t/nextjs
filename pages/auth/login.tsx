@@ -12,6 +12,7 @@ import Link from "next/link";
 import { mainContext } from "../../Context/ContextWrapper";
 import useIsAuthReq from "../../Hooks/useIsAuthReq";
 import Cookies from "js-cookie";
+import axios from "axios";
 const Login: NextPage = () => {
   const router = useRouter();
   const context = useContext(mainContext);
@@ -52,9 +53,7 @@ const Login: NextPage = () => {
       <section className={styles.section}>
         <button
           onClick={async () => {
-            const res = await fetch("/api/test");
-            const data = await res.json();
-            console.log(data);
+            const res = await axios.get("/api/test", { withCredentials: true });
           }}
         >
           TEST
