@@ -14,8 +14,9 @@ export default function test(req: NextApiRequest, res: NextApiResponse) {
         sameSite: "strict",
         maxAge: 60 * 20,
         path: "/",
+        domain: ".vercel.app",
       })
     );
-    res.status(200).json({ message: "ok" });
+    res.status(200).json({ message: "loveYou" });
   }
 }
