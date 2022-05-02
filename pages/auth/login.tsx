@@ -34,6 +34,7 @@ const Login: NextPage = () => {
           data: { email: formData.email, password: formData.password },
           withCredentials: true,
         });
+        router.reload();
       } catch (error: any) {
         if (error.response?.status === 401) {
           setReqError("Неверное имя или пароль");

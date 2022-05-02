@@ -41,17 +41,19 @@ const checkIsAuthInCookie = () => {
   if (typeof window !== "undefined") {
     const parsedCookies = parseCookies(document.cookie);
     const { rolesStr } = parsedCookies;
+    console.log(parsedCookies);
 
     let roles;
     if (rolesStr !== undefined) {
-      roles = JSON.parse(rolesStr);
+      roles = rolesStr.split(", ");
     } else {
       return { isAuth: false, roles: [] };
     }
     if (!roles.includes("user")) {
       return { isAuth: false, roles: [] };
     }
-    return { isAuth: true, roles: JSON.parse(rolesStr) };
+    return { isAuth: true, roles: rolesStr.split(", ") };
+    //
   } else {
     return { isAuth: false, roles: [] };
   }

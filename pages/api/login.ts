@@ -7,26 +7,25 @@ export default async function test(req: NextApiRequest, res: NextApiResponse) {
     try {
       const response = await userApi.login(req.body.data.email, req.body.data.password);
       console.log(response.data);
-      res.setHeader(
-        "Set-Cookie",
-        cookie.serialize("token", `${response.data.token}`, {
-          httpOnly: true,
-          secure: true,
-          sameSite: "strict",
-          maxAge: 60 * 20,
-          path: "/",
-        })
-      );
-      res.setHeader(
-        "Set-Cookie",
-        cookie.serialize("roles", `${response.data.roles}`, {
-          // httpOnly: true,
-          // secure: true,
-          // sameSite: "strict",
-          maxAge: 60 * 20,
-          path: "/",
-        })
-      );
+
+      const tokenCookie = cookie.serialize("token", `${response.data.token}`, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+        maxAge: 60 * 20,
+        path: "/",
+      });
+      const arr = [1, 4];
+
+      const rolesStrCookie = cookie.serialize("rolesStr", `${response.data.roles.join(", ")}`, {
+        // httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+        maxAge: 60 * 20,
+        path: "/",
+      });
+
+      res.setHeader("Set-Cookie", [tokenCookie, rolesStrCookie]);
       res.status(200).json({ message: "ok" });
     } catch (error) {
       res.setHeader(
