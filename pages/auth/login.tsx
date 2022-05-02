@@ -11,7 +11,7 @@ import Link from "next/link";
 
 import { mainContext } from "../../Context/ContextWrapper";
 import useIsAuthReq from "../../Hooks/useIsAuthReq";
-
+import Cookies from "js-cookie";
 const Login: NextPage = () => {
   const router = useRouter();
   const context = useContext(mainContext);
@@ -27,8 +27,13 @@ const Login: NextPage = () => {
     setReqError("");
     const req = async () => {
       try {
-        await userApi.login(formData.email, formData.password);
+        const response = await userApi.login(formData.email, formData.password);
         // router.reload();
+        ("%5B%22user%22%2C%22moderator%22%5D");
+        console.log(response);
+
+        // document.cookie = `token=${response.data.token}`;
+        // document.cookie = `roles=${response.data.roles}`;
       } catch (error: any) {
         if (error.response?.status === 401) {
           setReqError("Неверное имя или пароль");
@@ -45,6 +50,15 @@ const Login: NextPage = () => {
   return (
     <MainLayout title="Вход">
       <section className={styles.section}>
+        <button
+          onClick={async () => {
+            const res = await fetch("/api/test");
+            const data = await res.json();
+            console.log(data);
+          }}
+        >
+          TEST
+        </button>
         {context.user.isAuth === true && <div style={{ textAlign: "center" }}>logged</div>}
         {context.user.isAuth === false && (
           <form
