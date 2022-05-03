@@ -18,8 +18,8 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
 
       const rolesStrCookie = cookie.serialize("rolesStr", `${response.data.roles.join(", ")}`, {
         // httpOnly: true,
-        // secure: true,
-        // sameSite: "strict",
+        secure: true,
+        sameSite: "strict",
         maxAge: 60 * 20,
         path: "/",
       });

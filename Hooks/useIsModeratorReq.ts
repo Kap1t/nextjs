@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { userApi } from "../Api/Api";
 
 import { useRouter } from "next/router";
+import axios from "axios";
 
 function parseCookies(cookieHeader: string) {
   const list: any = {};
@@ -26,7 +27,7 @@ export default function useIsModaratorReq() {
     let roles: any[];
 
     if (rolesStr !== undefined) {
-      roles = JSON.parse(rolesStr);
+      roles = rolesStr.split(", ");
     } else {
       setIsModarator(false);
       return;
@@ -38,12 +39,13 @@ export default function useIsModaratorReq() {
 
     const req = async () => {
       try {
-        await userApi.checkIsModarator();
+        // await userApi.checkIsModarator();
+        await axios.post("/api/checkIsmoderator");
         setIsModarator(true);
       } catch (error: any) {
         console.log(error.response.data?.message);
         setIsModarator(false);
-        router.reload();
+        // router.reload();
       }
     };
     req();

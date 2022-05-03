@@ -1,8 +1,8 @@
 import axios from "axios";
 
 class Api {
-  // private _baseApiUrl = "http://localhost:7000/api";
-  private _baseApiUrl = "https://learn-web-api.herokuapp.com/api";
+  private _baseApiUrl = "http://localhost:7000/api";
+  // private _baseApiUrl = "https://learn-web-api.herokuapp.com/api";
   private _axiosApiInstance = axios.create({ baseURL: this._baseApiUrl });
 
   private _baseThisUrl = "/api";
@@ -68,11 +68,12 @@ class UsersApi extends Api {
       withCredentials: true,
     });
   }
-  checkIsModarator() {
+  checkIsModarator(token: string) {
     return this.axiosApiInstance.request({
       method: "GET",
       url: `/users/checkIsModarator`,
       withCredentials: true,
+      headers: { Authorization: `Bearer ${token}` },
     });
   }
   checkIsAuth() {

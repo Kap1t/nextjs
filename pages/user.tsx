@@ -1,3 +1,4 @@
+import axios from "axios";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useContext } from "react";
@@ -22,8 +23,10 @@ const User: NextPage = () => {
             onClick={() => {
               try {
                 const req = async () => {
-                  await userApi.logOut();
-                  router.reload();
+                  const res = await axios.post("/api/logout");
+                  console.log(res);
+                  // await userApi.logOut();
+                  // router.reload();
                 };
                 req();
               } catch (error) {
