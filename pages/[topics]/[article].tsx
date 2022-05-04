@@ -107,7 +107,7 @@ const Article: NextPage<Props> = ({ article }) => {
   }
   return (
     //! Добавить в article header название страницы в бд
-    <MainLayout title={"react"}>
+    <MainLayout title={router.query.article || "react"}>
       <section className={styles.articleSection}>
         <div className={styles.ReactMarkdownBlock}>
           {/* <div className={styles.createdAt}>
