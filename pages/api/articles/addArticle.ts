@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { userApi } from "../../../Api/Api";
+import { articlesApi } from "../../../Api/Api";
 import generateCookie from "../../../Api/GenerateCookie";
 
-export default async function checkIsModarator(req: NextApiRequest, res: NextApiResponse) {
+export default async function updateArticle(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     try {
-      await userApi.checkIsModarator(req.cookies.token);
-      res.status(200).json({ isModarator: true });
+      await articlesApi.addArticle(req.cookies.token, req.body.data.topicID, req.body.data.data);
+      res.status(200).json({ message: "Article updated successfully" });
     } catch (error: any) {
       if (error.response.status === 401) {
         res.setHeader("Set-Cookie", [
@@ -16,7 +16,8 @@ export default async function checkIsModarator(req: NextApiRequest, res: NextApi
         res.status(401).json({ message: "logOut" });
         return;
       }
-      res.status(403).json({ message: "Forbidden" });
+
+      res.status(error.response.status).json({ message: error.response.data.message });
     }
   }
 }

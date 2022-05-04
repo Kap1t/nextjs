@@ -42,9 +42,11 @@ export default function useIsModaratorReq() {
         await userApi.checkIsModaratorProxy();
         setIsModarator(true);
       } catch (error: any) {
-        console.log(error.response.data?.message);
+        console.log(error);
         setIsModarator(false);
-        router.reload();
+        if (error.response.status === 401) {
+          router.reload();
+        }
       }
     };
     req();

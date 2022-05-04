@@ -26,20 +26,26 @@ class RevalidateApi extends Api {
   }
 }
 class ArticlesApi extends Api {
-  updateArticle(articleId: string, content: string) {
+  updateArticleProxy(articleId: string, content: string) {
+    return axios.put("/api/articles/updateArticle", { data: { articleId, content } });
+  }
+  updateArticle(token: string, articleId: string, content: string) {
     return this.axiosApiInstance.request({
       method: "PUT",
       url: `/technology/topics/${articleId}`,
       data: { content: content },
-      withCredentials: true,
+      headers: { Authorization: `Bearer ${token}` },
     });
   }
-  addArticle(topicID: string, data: any) {
+  addArticleProxy(topicID: string, data: any) {
+    return axios.post("/api/articles/addArticle", { data: { topicID, data } });
+  }
+  addArticle(token: string, topicID: string, data: any) {
     return this.axiosApiInstance.request({
       method: "POST",
       url: `/technology/${topicID}`,
       data: data,
-      withCredentials: true,
+      headers: { Authorization: `Bearer ${token}` },
     });
   }
 }
@@ -54,7 +60,6 @@ class UsersApi extends Api {
       method: "POST",
       url: `/users/signin`,
       data: { email, password },
-      // withCredentials: true,
     });
   }
   signUpProxy(email: string, password: string, name: string) {
@@ -70,11 +75,7 @@ class UsersApi extends Api {
     });
   }
   logOut() {
-    return this.axiosApiInstance.request({
-      method: "GET",
-      url: `/users/logout`,
-      withCredentials: true,
-    });
+    return axios.post("/api/auth/logout");
   }
   checkIsModaratorProxy() {
     return axios.post("/api/auth/checkIsmoderator");

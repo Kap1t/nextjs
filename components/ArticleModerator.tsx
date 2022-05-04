@@ -27,7 +27,7 @@ const ArticleModerator: NextPage<Props> = ({ article, markdownString, setMarkdow
           const req = async () => {
             try {
               const textarea = e.target[0].value;
-              const { data } = await articlesApi.updateArticle(article._id, textarea);
+              const { data } = await articlesApi.updateArticleProxy(article._id, textarea);
               // TODO Переместить на сервер с secretKey при деплое
               const resp2 = await revalidateApi.revalidate(`${router.asPath}`);
               console.log(data);

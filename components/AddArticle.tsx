@@ -23,7 +23,7 @@ export const AddArticle: NextPage<Props> = ({ topic }) => {
           e.preventDefault();
           const req = async () => {
             try {
-              const response = await articlesApi.addArticle(`${topic._id}`, {
+              const response = await articlesApi.addArticleProxy(`${topic._id}`, {
                 name: e.target[0].value,
                 ref: e.target[1].value,
               });
