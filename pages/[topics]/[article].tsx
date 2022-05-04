@@ -111,7 +111,13 @@ const Article: NextPage<Props> = ({ article }) => {
       <section className={styles.articleSection}>
         <div className={styles.ReactMarkdownBlock}>
           <div className={styles.createdAt}>
-            {"Обновлено: " + new Date(article.updatedAt).toLocaleDateString()}
+            {/* {"Обновлено: " + new Date(article.updatedAt).toLocaleDateString()} */}
+            {"Обновлено: " +
+              article.updatedAt.slice(8, 10) +
+              "." +
+              article.updatedAt.slice(5, 7) +
+              "." +
+              article.updatedAt.slice(0, 4)}
           </div>
           <ReactMarkdown
             skipHtml={false}
