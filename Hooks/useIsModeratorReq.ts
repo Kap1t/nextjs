@@ -39,13 +39,12 @@ export default function useIsModaratorReq() {
 
     const req = async () => {
       try {
-        // await userApi.checkIsModarator();
-        await axios.post("/api/checkIsmoderator");
+        await userApi.checkIsModaratorProxy();
         setIsModarator(true);
       } catch (error: any) {
         console.log(error.response.data?.message);
         setIsModarator(false);
-        // router.reload();
+        router.reload();
       }
     };
     req();

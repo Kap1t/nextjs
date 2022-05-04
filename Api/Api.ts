@@ -44,13 +44,22 @@ class ArticlesApi extends Api {
   }
 }
 class UsersApi extends Api {
+  loginProxy(email: string, password: string) {
+    return axios.post("/api/auth/login", {
+      data: { email, password },
+    });
+  }
   login(email: string, password: string) {
     return this.axiosApiInstance.request({
       method: "POST",
       url: `/users/signin`,
       data: { email, password },
-      withCredentials: true,
-      // headers: { Authorization: `Bearer ${token}` },
+      // withCredentials: true,
+    });
+  }
+  signUpProxy(email: string, password: string, name: string) {
+    return axios.post("/api/auth/signup", {
+      data: { email, password, name },
     });
   }
   signUp(email: string, password: string, name: string) {
@@ -58,7 +67,6 @@ class UsersApi extends Api {
       method: "POST",
       url: `/users/signup`,
       data: { email, password, name },
-      withCredentials: true,
     });
   }
   logOut() {
@@ -68,11 +76,13 @@ class UsersApi extends Api {
       withCredentials: true,
     });
   }
+  checkIsModaratorProxy() {
+    return axios.post("/api/auth/checkIsmoderator");
+  }
   checkIsModarator(token: string) {
     return this.axiosApiInstance.request({
       method: "GET",
       url: `/users/checkIsModarator`,
-      withCredentials: true,
       headers: { Authorization: `Bearer ${token}` },
     });
   }

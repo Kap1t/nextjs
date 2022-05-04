@@ -25,8 +25,8 @@ const Login: NextPage = () => {
     setReqError("");
     const req = async () => {
       try {
-        const res = await userApi.signUp(formData.email, formData.password, formData.name);
-        router.push("/user");
+        await userApi.signUpProxy(formData.email, formData.password, formData.name);
+        router.reload();
       } catch (error: any) {
         if (error.response?.status === 403) {
           setReqError("Пользователь с таким email уже зарегистрирован");

@@ -23,10 +23,8 @@ const User: NextPage = () => {
             onClick={() => {
               try {
                 const req = async () => {
-                  const res = await axios.post("/api/logout");
-                  console.log(res);
-                  // await userApi.logOut();
-                  // router.reload();
+                  await axios.post("/api/auth/logout");
+                  router.reload();
                 };
                 req();
               } catch (error) {

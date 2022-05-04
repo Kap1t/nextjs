@@ -28,12 +28,7 @@ const Login: NextPage = () => {
     setReqError("");
     const req = async () => {
       try {
-        // const response = await userApi.login(formData.email, formData.password);
-        // router.reload();
-        const res = await axios.post("/api/login", {
-          data: { email: formData.email, password: formData.password },
-          withCredentials: true,
-        });
+        const response = await userApi.loginProxy(formData.email, formData.password);
         router.reload();
       } catch (error: any) {
         if (error.response?.status === 401) {
