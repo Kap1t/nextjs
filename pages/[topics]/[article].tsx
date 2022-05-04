@@ -99,7 +99,6 @@ interface Props {
 const Article: NextPage<Props> = ({ article }) => {
   const router = useRouter();
   const isModarator = useIsModaratorReq();
-  console.log(isModarator);
 
   const [markdownString, setMarkdownString] = useState(article?.content);
 
@@ -108,12 +107,12 @@ const Article: NextPage<Props> = ({ article }) => {
   }
   return (
     //! Добавить в article header название страницы в бд
-    <MainLayout title={router.query.article || "react"}>
+    <MainLayout title={"react"}>
       <section className={styles.articleSection}>
         <div className={styles.ReactMarkdownBlock}>
-          <div className={styles.createdAt}>
+          {/* <div className={styles.createdAt}>
             {"Обновлено: " + new Date(article.updatedAt).toLocaleDateString()}
-          </div>
+          </div> */}
           <ReactMarkdown
             skipHtml={false}
             remarkPlugins={[remarkGfm]}

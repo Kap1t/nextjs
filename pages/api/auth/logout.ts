@@ -41,11 +41,7 @@ const generateCookie = new GenerateCookie();
 
 export default async function logout(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
-    try {
-      res.setHeader("Set-Cookie", [generateCookie.removeToken(), generateCookie.removeRolesStr()]);
-      res.status(200).json({ message: "successlogout" });
-    } catch (error) {
-      res.status(401).json({ message: `${error}` });
-    }
+    res.setHeader("Set-Cookie", [generateCookie.removeToken(), generateCookie.removeRolesStr()]);
+    res.status(200).json({ message: "successlogout" });
   }
 }

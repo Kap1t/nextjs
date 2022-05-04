@@ -44,13 +44,12 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     try {
       const response = await userApi.login(req.body.data.email, req.body.data.password);
-      console.log(response.data);
 
       res.setHeader("Set-Cookie", [
         generateCookie.generateToken(response.data.token),
         generateCookie.generateRolesStr(response.data.roles),
       ]);
-      res.status(200).json({ message: "ok" });
+      res.status(200).json({ message: "success" });
     } catch (error: any) {
       res.setHeader("Set-Cookie", [generateCookie.removeToken(), generateCookie.removeRolesStr()]);
       res.status(error.response.status).json({ message: error.response.data.message });
