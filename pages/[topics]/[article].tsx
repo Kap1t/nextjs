@@ -110,9 +110,9 @@ const Article: NextPage<Props> = ({ article }) => {
     <MainLayout title={router.query.article || "react"}>
       <section className={styles.articleSection}>
         <div className={styles.ReactMarkdownBlock}>
-          {/* <div className={styles.createdAt}>
+          <div className={styles.createdAt}>
             {"Обновлено: " + new Date(article.updatedAt).toLocaleDateString()}
-          </div> */}
+          </div>
           <ReactMarkdown
             skipHtml={false}
             remarkPlugins={[remarkGfm]}
