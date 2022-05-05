@@ -91,6 +91,7 @@ interface Props {
   article: {
     _id: string;
     ref: string;
+    name?: string;
     content: string;
     updatedAt: string;
   };
@@ -107,7 +108,8 @@ const Article: NextPage<Props> = ({ article }) => {
   }
   return (
     //! Добавить в article header название страницы в бд
-    <MainLayout title={router.query.article || "react"}>
+    // <MainLayout title={router.query.article || "react"}>
+    <MainLayout title={article?.name || "learn-web"}>
       <section className={styles.articleSection}>
         <div className={styles.ReactMarkdownBlock}>
           <div className={styles.createdAt}>

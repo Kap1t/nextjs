@@ -5,7 +5,7 @@ class GenerateCookie {
       httpOnly: true,
       secure: true,
       sameSite: "strict",
-      maxAge: 60 * 30,
+      maxAge: 60 * 60 * 24 * 7,
       path: "/",
     });
   }
@@ -22,7 +22,7 @@ class GenerateCookie {
     return cookie.serialize("rolesStr", `${roles.join(", ")}`, {
       secure: true,
       sameSite: "strict",
-      maxAge: 60 * 30,
+      maxAge: 60 * 60 * 24 * 7,
       path: "/",
     });
   }

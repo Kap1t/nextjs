@@ -5,7 +5,7 @@ import React from "react";
 import { useRouter } from "next/router";
 
 import MainLayout from "../components/MainLayout";
-import styles from "../styles/Technology.module.scss";
+import styles from "../styles/Topics.module.scss";
 
 import Link from "next/link";
 
@@ -80,7 +80,7 @@ const Topics: NextPage<Props> = ({ topics }) => {
     return <div>Загрузка</div>;
   }
   return (
-    <MainLayout title={router.query.technology || "react"}>
+    <MainLayout title={router.query.technology || "learnweb"}>
       <section className={styles.article}>
         <h1 className={styles.h1}>{router.query.technology}</h1>
         <ul className={styles.ol1}>
@@ -94,7 +94,30 @@ const Topics: NextPage<Props> = ({ topics }) => {
                       <Link href={`${router.asPath}/${link.ref}`}>
                         <a className={styles.a}>{link.name}</a>
                       </Link>
-                      {isModarator && <span>{" " + link.ref}</span>}
+                      {isModarator && (
+                        <>
+                          <span>{" " + link.ref}</span>
+                          <button
+                            onClick={() => {
+                              const req = async () => {
+                                try {
+                                  //TODO BEARER
+                                  const response = await axios.post(
+                                    // "http://localhost:7000/api/technology/topics/deleteArticle",
+                                    "https://learn-web-api.herokuapp.com/api/technology/topics/deleteArticle",
+                                    { topicId: `${topic._id}`, articleRef: `${link.ref}` }
+                                  );
+                                  router.reload();
+                                  console.log(response.data);
+                                } catch (error) {}
+                              };
+                              req();
+                            }}
+                          >
+                            Del
+                          </button>{" "}
+                        </>
+                      )}
                     </li>
                   ))}
                 </ol>
