@@ -3,7 +3,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 
 import ReactMarkdown from "react-markdown";
@@ -14,6 +14,7 @@ import styles from "../../styles/Article.module.scss";
 
 import useIsModaratorReq from "../../Hooks/useIsModeratorReq";
 import ArticleModerator from "../../components/ArticleModerator";
+import { log } from "console";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
@@ -97,11 +98,66 @@ interface Props {
   };
 }
 
+const getAnchors = (str: string) => {
+  const arrOfLinks = [];
+  let startTarget = "##";
+  let endTarget = "\n";
+  let pos = 0;
+  for (let i = 0; i < 51; i++) {
+    let startFoundPos = str.indexOf(startTarget, pos);
+    if (startFoundPos === -1) break;
+
+    let endFoundPos = str.indexOf(endTarget, startFoundPos);
+    if (endFoundPos === -1) break;
+    //TODO ограничение на длинну
+    arrOfLinks.push({
+      name: str.slice(startFoundPos + 3, endFoundPos + 1),
+      anchor: `anchor${startFoundPos}`,
+    });
+
+    pos = startFoundPos + 1;
+  }
+  return arrOfLinks;
+};
+
+interface Props2 {
+  article: {
+    _id: string;
+    ref: string;
+    name?: string;
+    content: string;
+    updatedAt: string;
+  };
+}
+
+export const Links: NextPage<Props2> = ({ article }) => {
+  console.log(article);
+
+  const [links, setLinks] = useState(getAnchors(article.content));
+  return (
+    <div>
+      {links.map((link) => (
+        <a href={"#" + link.anchor} key={link.anchor}>
+          {link.name}
+        </a>
+      ))}
+    </div>
+  );
+};
+
 const Article: NextPage<Props> = ({ article }) => {
   const router = useRouter();
   const isModarator = useIsModaratorReq();
-
+  const [anchorsList, setAnchorsList] = useState<any[]>([]);
+  const myRef = useRef<any>([]);
   const [markdownString, setMarkdownString] = useState(article?.content);
+  const myf = (id: string, name: string) => {
+    if (myRef.current.length > 50) return;
+    myRef.current.push({ anchor: id, name: name });
+  };
+  useEffect(() => {
+    setAnchorsList([...myRef.current]);
+  }, []);
 
   if (article === null) {
     return <div>Загрузка</div>;
@@ -111,6 +167,12 @@ const Article: NextPage<Props> = ({ article }) => {
     // <MainLayout title={router.query.article || "react"}>
     <MainLayout title={article?.name || "learn-web"}>
       <section className={styles.articleSection}>
+        {/* {anchorsList.map((link) => (
+          <a href={"#" + link.anchor} key={link.anchor}>
+            {link.name}
+          </a>
+        ))} */}
+        <Links article={article} />
         <div className={styles.ReactMarkdownBlock}>
           <div className={styles.createdAt}>
             {/* {"Обновлено: " + new Date(article.updatedAt).toLocaleDateString()} */}
@@ -143,6 +205,16 @@ const Article: NextPage<Props> = ({ article }) => {
                   <code className={className} {...props}>
                     {children}
                   </code>
+                );
+              },
+              h2: ({ node, ...props }) => {
+                // myf(`anchor${node.position?.start?.offset}`, props.children[0] as string);
+                return (
+                  <h2
+                    id={`anchor${node.position?.start?.offset}`}
+                    style={{ color: "green" }}
+                    {...props}
+                  />
                 );
               },
             }}

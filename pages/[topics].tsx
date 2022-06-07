@@ -103,8 +103,8 @@ const Topics: NextPage<Props> = ({ topics }) => {
                                 try {
                                   //TODO BEARER
                                   const response = await axios.post(
-                                    // "http://localhost:7000/api/technology/topics/deleteArticle",
-                                    "https://learn-web-api.herokuapp.com/api/technology/topics/deleteArticle",
+                                    "http://localhost:7000/api/technology/topics/deleteArticle",
+                                    // "https://learn-web-api.herokuapp.com/api/technology/topics/deleteArticle",
                                     { topicId: `${topic._id}`, articleRef: `${link.ref}` }
                                   );
                                   router.reload();
