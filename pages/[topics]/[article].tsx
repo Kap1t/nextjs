@@ -14,7 +14,7 @@ import styles from "../../styles/Article.module.scss";
 
 import useIsModaratorReq from "../../Hooks/useIsModeratorReq";
 import ArticleModerator from "../../components/ArticleModerator";
-import { log } from "console";
+import Image from "next/image";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
@@ -148,17 +148,7 @@ export const Links: NextPage<Props2> = ({ article }) => {
 const Article: NextPage<Props> = ({ article }) => {
   const router = useRouter();
   const isModarator = useIsModaratorReq();
-  const [anchorsList, setAnchorsList] = useState<any[]>([]);
-  const myRef = useRef<any>([]);
   const [markdownString, setMarkdownString] = useState(article?.content);
-  const myf = (id: string, name: string) => {
-    if (myRef.current.length > 50) return;
-    myRef.current.push({ anchor: id, name: name });
-  };
-  useEffect(() => {
-    setAnchorsList([...myRef.current]);
-  }, []);
-
   if (article === null) {
     return <div>Загрузка</div>;
   }
@@ -208,7 +198,6 @@ const Article: NextPage<Props> = ({ article }) => {
                 );
               },
               h2: ({ node, ...props }) => {
-                // myf(`anchor${node.position?.start?.offset}`, props.children[0] as string);
                 return (
                   <h2
                     id={`anchor${node.position?.start?.offset}`}
