@@ -1,12 +1,12 @@
-// /** @type {import('next').NextConfig} */
-// const nextConfig = {
-//   reactStrictMode: false,
-// }
-
-// module.exports = nextConfig
-module.exports = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   reactStrictMode: false,
-  images: {
-    domains: ['sun9-31.userapi.com'],
-  },
 }
+
+module.exports = nextConfig
+// module.exports = {
+//   reactStrictMode: false,
+//   images: {
+//     domains: ['sun9-31.userapi.com'],
+//   },
+// }

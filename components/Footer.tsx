@@ -19,6 +19,7 @@ const Footer: NextPage = () => {
           background-color: var(--header-background);
           // border-bottom: 2px solid var(--border);
           position: relative;
+          z-index: 0;
         }
         footer:before {
           position: absolute;

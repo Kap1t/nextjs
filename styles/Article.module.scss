@@ -1,4 +1,11 @@
+.articleSection2 {
+  width: 100%;
+  transition: padding .5s;
+  padding-left: var(--padding);
+}
+
 .articleSection {
+  // position: relative;
   margin: 50px auto 0;
   padding: 0 15px;
   max-width: 1000px;

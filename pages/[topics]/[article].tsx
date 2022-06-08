@@ -3,7 +3,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 
 import ReactMarkdown from "react-markdown";
@@ -15,6 +15,7 @@ import styles from "../../styles/Article.module.scss";
 import useIsModaratorReq from "../../Hooks/useIsModeratorReq";
 import ArticleModerator from "../../components/ArticleModerator";
 import Image from "next/image";
+import { SideBar } from "../../components/Sidebar/SideBar";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
@@ -98,53 +99,6 @@ interface Props {
   };
 }
 
-const getAnchors = (str: string) => {
-  const arrOfLinks = [];
-  let startTarget = "##";
-  let endTarget = "\n";
-  let pos = 0;
-  for (let i = 0; i < 51; i++) {
-    let startFoundPos = str.indexOf(startTarget, pos);
-    if (startFoundPos === -1) break;
-
-    let endFoundPos = str.indexOf(endTarget, startFoundPos);
-    if (endFoundPos === -1) break;
-    //TODO ограничение на длинну
-    arrOfLinks.push({
-      name: str.slice(startFoundPos + 3, endFoundPos + 1),
-      anchor: `anchor${startFoundPos}`,
-    });
-
-    pos = startFoundPos + 1;
-  }
-  return arrOfLinks;
-};
-
-interface Props2 {
-  article: {
-    _id: string;
-    ref: string;
-    name?: string;
-    content: string;
-    updatedAt: string;
-  };
-}
-
-export const Links: NextPage<Props2> = ({ article }) => {
-  console.log(article);
-
-  const [links, setLinks] = useState(getAnchors(article.content));
-  return (
-    <div>
-      {links.map((link) => (
-        <a href={"#" + link.anchor} key={link.anchor}>
-          {link.name}
-        </a>
-      ))}
-    </div>
-  );
-};
-
 const Article: NextPage<Props> = ({ article }) => {
   const router = useRouter();
   const isModarator = useIsModaratorReq();
@@ -156,69 +110,66 @@ const Article: NextPage<Props> = ({ article }) => {
     //! Добавить в article header название страницы в бд
     // <MainLayout title={router.query.article || "react"}>
     <MainLayout title={article?.name || "learn-web"}>
-      <section className={styles.articleSection}>
-        {/* {anchorsList.map((link) => (
-          <a href={"#" + link.anchor} key={link.anchor}>
-            {link.name}
-          </a>
-        ))} */}
-        <Links article={article} />
-        <div className={styles.ReactMarkdownBlock}>
-          <div className={styles.createdAt}>
-            {/* {"Обновлено: " + new Date(article.updatedAt).toLocaleDateString()} */}
-            {"Обновлено: " +
-              article.updatedAt.slice(8, 10) +
-              "." +
-              article.updatedAt.slice(5, 7) +
-              "." +
-              article.updatedAt.slice(0, 4)}
+      <section className={styles.articleSection2}>
+        <div className={styles.articleSection}>
+          <SideBar article={article} />
+          <div className={styles.ReactMarkdownBlock}>
+            <div className={styles.createdAt}>
+              {/* {"Обновлено: " + new Date(article.updatedAt).toLocaleDateString()} */}
+              {"Обновлено: " +
+                article.updatedAt.slice(8, 10) +
+                "." +
+                article.updatedAt.slice(5, 7) +
+                "." +
+                article.updatedAt.slice(0, 4)}
+            </div>
+            <ReactMarkdown
+              skipHtml={false}
+              remarkPlugins={[remarkGfm]}
+              components={{
+                code({ node, inline, className, children, ...props }) {
+                  const match = /language-(\w+)/.exec(className || "");
+                  return !inline && match ? (
+                    <SyntaxHighlighter
+                      style={dracula}
+                      customStyle={{ padding: "15px 0" }}
+                      className={styles.pre}
+                      language={match[1]}
+                      PreTag="div"
+                      {...props}
+                      showLineNumbers
+                    >
+                      {String(children).replace(/\n$/, "")}
+                    </SyntaxHighlighter>
+                  ) : (
+                    <code className={className} {...props}>
+                      {children}
+                    </code>
+                  );
+                },
+                h2: ({ node, ...props }) => {
+                  return (
+                    <h2
+                      id={`anchor${node.position?.start?.offset}`}
+                      style={{ color: "green" }}
+                      {...props}
+                    />
+                  );
+                },
+              }}
+            >
+              {markdownString}
+            </ReactMarkdown>
           </div>
-          <ReactMarkdown
-            skipHtml={false}
-            remarkPlugins={[remarkGfm]}
-            components={{
-              code({ node, inline, className, children, ...props }) {
-                const match = /language-(\w+)/.exec(className || "");
-                return !inline && match ? (
-                  <SyntaxHighlighter
-                    style={dracula}
-                    customStyle={{ padding: "15px 0" }}
-                    className={styles.pre}
-                    language={match[1]}
-                    PreTag="div"
-                    {...props}
-                    showLineNumbers
-                  >
-                    {String(children).replace(/\n$/, "")}
-                  </SyntaxHighlighter>
-                ) : (
-                  <code className={className} {...props}>
-                    {children}
-                  </code>
-                );
-              },
-              h2: ({ node, ...props }) => {
-                return (
-                  <h2
-                    id={`anchor${node.position?.start?.offset}`}
-                    style={{ color: "green" }}
-                    {...props}
-                  />
-                );
-              },
-            }}
-          >
-            {markdownString}
-          </ReactMarkdown>
-        </div>
 
-        {isModarator && (
-          <ArticleModerator
-            article={article}
-            markdownString={markdownString}
-            setMarkdownString={setMarkdownString}
-          />
-        )}
+          {isModarator && (
+            <ArticleModerator
+              article={article}
+              markdownString={markdownString}
+              setMarkdownString={setMarkdownString}
+            />
+          )}
+        </div>
       </section>
     </MainLayout>
   );
