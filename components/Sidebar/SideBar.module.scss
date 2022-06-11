@@ -1,8 +1,8 @@
 .sideBar {
   transition: all .5s;
   position: fixed;
-  left: calc(var(--padding) - 300px);
-  // top: 68px;
+  // left: calc(var(--padding) - 300px);
+  left: -300px;
   top: 0;
   width: 300px;
   background-color: rgb(40, 42, 54);
@@ -34,10 +34,15 @@
   }
 }
 
+.activeSideBar {
+  left: 0;
+}
+
+
 @media screen and (max-width: 700px) {
   .sideBar {
     width: 250px;
-    left: calc(var(--padding-sm) - 250px);
+    left: -250px;
 
     .showBtn {
       right: -50px;
@@ -47,5 +52,10 @@
       padding-left: 10px;
     }
   }
+
+  .activeSideBar {
+    left: 0;
+  }
+
 
 }

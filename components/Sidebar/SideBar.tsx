@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./SideBar.module.scss";
 import { BsArrowRight, BsArrowLeft } from "react-icons/bs";
 import { log } from "console";
@@ -37,11 +37,36 @@ interface Props {
 }
 export const SideBar: NextPage<Props> = ({ article }) => {
   const [show, setShow] = useState(false);
-  const [links, setLinks] = useState(getAnchors(article.content));
+  const [links] = useState(getAnchors(article.content));
+  useEffect(() => {
+    if (window.innerWidth > 700) {
+      if (!(localStorage.getItem("showBig") == "false")) {
+        setShow(true);
+        document.body.setAttribute("showSidebar", "");
+      }
+    }
+
+    const handlerOnResize = () => {
+      if (window.innerWidth < 700) {
+        setShow(false);
+      } else {
+        if (!(localStorage.getItem("showBig") == "false")) {
+          setShow(true);
+        }
+      }
+    };
+    window.addEventListener("resize", handlerOnResize);
+
+    return () => {
+      window.removeEventListener("resize", handlerOnResize);
+    };
+  }, []);
+
   return (
     // <div className={styles.sideBar} style={{ left: show ? "0" : "-300px" }}>
     <>
-      <div className={styles.sideBar}>
+      {/* <div className={styles.sideBar}> */}
+      <div className={`${styles.sideBar} ${show && styles.activeSideBar}`}>
         <nav>
           <ul>
             <li style={{ color: "#868686" }}>Раздел</li>
@@ -55,13 +80,21 @@ export const SideBar: NextPage<Props> = ({ article }) => {
           <button
             className={styles.showBtn}
             onClick={() => {
-              if (!document.body.hasAttribute("showSidebar")) {
-                document.body.setAttribute("showSidebar", "");
-              } else {
-                document.body.removeAttribute("showSidebar");
+              if (window.innerWidth < 700) {
+                setShow(!show);
               }
 
-              // setShow(!show);
+              if (window.innerWidth > 700) {
+                if (show) {
+                  localStorage.setItem("showBig", "false");
+                  setShow(false);
+                  document.body.removeAttribute("showSidebar");
+                } else {
+                  localStorage.removeItem("showBig");
+                  setShow(true);
+                  document.body.setAttribute("showSidebar", "");
+                }
+              }
             }}
           >
             {show ? (
