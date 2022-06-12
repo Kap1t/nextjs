@@ -12,6 +12,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   try {
     // const response = await fetch(`${process.env.HOST}/api/technology`);
     const response = await fetch(`${process.env.HOST_API}/api/technology`);
+
     const technology = await response.json();
     console.log(technology);
 
@@ -25,7 +26,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       revalidate: 40,
     };
   } catch (error) {
-    console.log("error");
+    console.log(error);
     return {
       props: { technology: [] },
       // revalidate: 10,
