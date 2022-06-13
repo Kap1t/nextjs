@@ -15,16 +15,17 @@ class Api {
     return this._axiosThisInstance;
   }
 }
+
 class RevalidateApi extends Api {
   revalidate(ref: string) {
     return this.axiosThisInstance.request({
       method: "POST",
       url: `/revalidate`,
       data: { ref: ref },
-      // withCredentials: true,
     });
   }
 }
+
 class ArticlesApi extends Api {
   updateArticleProxy(articleId: string, content: string) {
     return axios.put("/api/articles/updateArticle", { data: { articleId, content } });
@@ -49,6 +50,7 @@ class ArticlesApi extends Api {
     });
   }
 }
+
 class UsersApi extends Api {
   loginProxy(email: string, password: string) {
     return axios.post("/api/auth/login", {
@@ -87,13 +89,71 @@ class UsersApi extends Api {
       headers: { Authorization: `Bearer ${token}` },
     });
   }
-  checkIsAuth() {
+  getUserDataProxy() {
+    return axios.post("/api/user/getUser");
+  }
+  getUserData(token: string) {
     return this.axiosApiInstance.request({
       method: "GET",
-      url: `/users/checkIsAuth`,
-      withCredentials: true,
+      url: `/users/getUser`,
+      headers: { Authorization: `Bearer ${token}` },
     });
   }
+  addToFavoritesProxy(articleId: string) {
+    return axios.post("/api/user/addToFavorites", {
+      data: { articleId },
+    });
+  }
+  addToFavorites(token: string, articleId: string) {
+    return this.axiosApiInstance.request({
+      method: "GET",
+      url: `/users/addToFavorites/${articleId}`,
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+  removeFromFavoritesProxy(articleId: string) {
+    return axios.post("/api/user/removeFromFavorites", {
+      data: { articleId },
+    });
+  }
+  removeFromFavorites(token: string, articleId: string) {
+    return this.axiosApiInstance.request({
+      method: "GET",
+      url: `/users/removeFromFavorites/${articleId}`,
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+  addToReadLaterProxy(articleId: string) {
+    return axios.post("/api/user/addToReadLater", {
+      data: { articleId },
+    });
+  }
+  addToReadLater(token: string, articleId: string) {
+    return this.axiosApiInstance.request({
+      method: "GET",
+      url: `/users/addToReadLater/${articleId}`,
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+  removeFromReadLaterProxy(articleId: string) {
+    return axios.post("/api/user/removeFromReadLater", {
+      data: { articleId },
+    });
+  }
+  removeFromReadLater(token: string, articleId: string) {
+    return this.axiosApiInstance.request({
+      method: "GET",
+      url: `/users/removeFromReadLater/${articleId}`,
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+  // checkIsAuth() {
+  //   return this.axiosApiInstance.request({
+  //     method: "GET",
+  //     url: `/users/checkIsAuth`,
+  //     withCredentials: true,
+  //   });
+  // }
 }
 export const revalidateApi = new RevalidateApi();
 export const articlesApi = new ArticlesApi();

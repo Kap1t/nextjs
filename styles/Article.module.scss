@@ -12,6 +12,12 @@
   // background-color: red;
 }
 
+.FavoriteAndReadLater {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
 .pre {
   font-size: 1.8rem;
 }

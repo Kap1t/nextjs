@@ -1,23 +1,23 @@
-import { log } from "console";
 import type { NextPage } from "next";
 import React, { createContext, useCallback, useEffect, useState } from "react";
+import { userApi } from "../Api/Api";
 
 export type IsAuth = boolean | "loading";
-export type User = { isAuth: IsAuth; roles: string[] };
+export interface User {
+  isAuth: IsAuth;
+  roles: string[];
+  favorites: string[];
+  readLater: string[];
+}
 
 interface MainContext {
   user: User;
   setUser: (themeState: User) => void;
-  test: string;
-  setTest: (str: string) => void;
-  randNum: number;
 }
+const initialUserState: User = { isAuth: "loading", roles: [], favorites: [], readLater: [] };
 export const mainContext = createContext<MainContext>({
-  user: { isAuth: "loading", roles: [] },
+  user: { ...initialUserState },
   setUser: () => {},
-  test: "in",
-  setTest: () => {},
-  randNum: 0,
 });
 
 function parseCookies(cookieHeader: string) {
@@ -37,42 +37,40 @@ interface Props {
   children: React.ReactNode;
 }
 
-const checkIsAuthInCookie = () => {
+const checkIsAuthInCookie = async () => {
   if (typeof window !== "undefined") {
     const parsedCookies = parseCookies(document.cookie);
     const { rolesStr } = parsedCookies;
-    console.log(parsedCookies);
+    if (rolesStr === undefined) {
+      return { ...initialUserState, isAuth: false };
+    }
 
-    let roles;
-    if (rolesStr !== undefined) {
-      roles = rolesStr.split(", ");
-    } else {
-      return { isAuth: false, roles: [] };
+    try {
+      const res = await userApi.getUserDataProxy();
+      const user = res.data;
+      return {
+        isAuth: true,
+        roles: user?.roles,
+        favorites: user?.favorites,
+        readLater: user?.readLater,
+      };
+    } catch (error) {
+      return { ...initialUserState, isAuth: false };
     }
-    if (!roles.includes("user")) {
-      return { isAuth: false, roles: [] };
-    }
-    return { isAuth: true, roles: rolesStr.split(", ") };
-    //
   } else {
-    return { isAuth: false, roles: [] };
+    return { ...initialUserState, isAuth: false };
   }
 };
 
-const setInitialState = () => {
-  return "initial";
-};
-const num = () => {
-  return Math.random();
-};
-
 const ContextWrapper: NextPage<Props> = ({ children }) => {
-  const [user, setUser] = useState<User>({ isAuth: "loading", roles: [] });
-  const [test, setTest] = useState(setInitialState());
-  const [number, setNumber] = useState(0);
+  const [user, setUser] = useState<User>({ ...initialUserState });
+
   useEffect(() => {
-    setUser(checkIsAuthInCookie());
-    setNumber(num());
+    const set = async () => {
+      const res = await checkIsAuthInCookie();
+      setUser(res);
+    };
+    set();
   }, []);
 
   return (
@@ -80,9 +78,6 @@ const ContextWrapper: NextPage<Props> = ({ children }) => {
       value={{
         user: user,
         setUser: setUser,
-        test: test,
-        setTest: setTest,
-        randNum: number,
       }}
     >
       {children}

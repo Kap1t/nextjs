@@ -2,7 +2,6 @@ import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import styles from "./SideBar.module.scss";
 import { BsArrowRight, BsArrowLeft } from "react-icons/bs";
-import { log } from "console";
 
 const getAnchors = (str: string) => {
   const arrOfLinks = [];

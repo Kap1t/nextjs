@@ -3,7 +3,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useRouter } from "next/router";
 
 import ReactMarkdown from "react-markdown";
@@ -14,8 +14,11 @@ import styles from "../../styles/Article.module.scss";
 
 import useIsModaratorReq from "../../Hooks/useIsModeratorReq";
 import ArticleModerator from "../../components/ArticleModerator";
-import Image from "next/image";
+
 import { SideBar } from "../../components/Sidebar/SideBar";
+
+import { Favorite } from "../../components/Favorite/Favorite";
+import { ReadLater } from "../../components/ReadLater/ReadLater";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
@@ -100,7 +103,6 @@ interface Props {
 }
 
 const Article: NextPage<Props> = ({ article }) => {
-  const router = useRouter();
   const isModarator = useIsModaratorReq();
   const [markdownString, setMarkdownString] = useState(article?.content);
   if (article === null) {
@@ -122,6 +124,10 @@ const Article: NextPage<Props> = ({ article }) => {
                 article.updatedAt.slice(5, 7) +
                 "." +
                 article.updatedAt.slice(0, 4)}
+            </div>
+            <div className={styles.FavoriteAndReadLater}>
+              <Favorite article={article} />
+              <ReadLater article={article} />
             </div>
             <ReactMarkdown
               skipHtml={false}
