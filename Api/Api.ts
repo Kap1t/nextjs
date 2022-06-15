@@ -39,7 +39,9 @@ class ArticlesApi extends Api {
     });
   }
   addArticleProxy(topicID: string, data: any) {
-    return axios.post("/api/articles/addArticle", { data: { topicID, data } });
+    return axios.post("/api/articles/addArticle", {
+      data: { topicID, data },
+    });
   }
   addArticle(token: string, topicID: string, data: any) {
     return this.axiosApiInstance.request({

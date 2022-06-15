@@ -40,6 +40,7 @@ export const AddArticle: NextPage<Props> = ({ topic }) => {
             const req = async () => {
               try {
                 const response = await articlesApi.addArticleProxy(`${topic._id}`, {
+                  technology: topic.technology,
                   name: e.target[0].value,
                   ref: e.target[1].value,
                 });

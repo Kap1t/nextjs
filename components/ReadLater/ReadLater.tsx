@@ -26,8 +26,6 @@ export const ReadLater: NextPage<Props> = ({ article }) => {
     setReadLater(context.user.readLater.includes(article._id));
     setDisabled(false);
   }, [article._id, context.user.readLater]);
-  console.log(context.user.readLater.includes(article._id));
-  console.log(readLater);
 
   return (
     <button
