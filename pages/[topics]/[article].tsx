@@ -113,7 +113,13 @@ const Article: NextPage<Props> = ({ article }) => {
     const links = document.querySelectorAll(".sideBarLink");
 
     const cb = () => {
+      console.log("cb");
+
       headings.forEach((h2, index) => {
+        console.log("forEach");
+        console.log(document.documentElement.scrollHeight);
+        console.log(links);
+
         if (document.documentElement.scrollHeight - window.innerHeight - window.scrollY <= 20) {
           links.forEach((link) => link.classList.remove("active"));
           links[links.length - 1].classList.add("active");
