@@ -106,33 +106,30 @@ const Article: NextPage<Props> = ({ article }) => {
   const isModarator = useIsModaratorReq();
   const [markdownString, setMarkdownString] = useState(article?.content);
 
-  /// TODO
-  const [test, setTest] = useState(false);
   useEffect(() => {
     const headings = document.querySelectorAll(".articleLink");
     const links = document.querySelectorAll(".sideBarLink");
 
     const cb = () => {
-      headings.forEach((h2, index) => {
-        // if (document.documentElement.scrollHeight - window.innerHeight - window.scrollY <= 20) {
-        //   links.forEach((link) => link.classList.remove("active"));
-        //   links[links.length - 1].classList.add("active");
-        //   return;
-        // }
+      headings.forEach((h2: any, index) => {
+        //  h2.getBoundingClientRect().top не работает при деплое на vercel
+        // h2.getBoundingClientRect().top = h2.offsetTop - window.scrollY
+        const top = h2.offsetTop - window.scrollY;
 
-        console.log(h2.getBoundingClientRect().top);
-        console.log(h2.getBoundingClientRect().bottom);
+        if (document.documentElement.scrollHeight - window.innerHeight - window.scrollY <= 20) {
+          links.forEach((link) => link.classList.remove("active"));
+          links[links.length - 1].classList.add("active");
+          return;
+        }
 
-        if (h2.getBoundingClientRect().top < 100 && h2.getBoundingClientRect().top > 0) {
+        if (top < 100 && top > 0) {
           const activeId = h2.id;
           const activeLink = document.querySelector(`.sideBarLink[href="#${activeId}"]`);
-          console.log(activeId);
 
           links.forEach((link) => link.classList.remove("active"));
           activeLink?.classList.add("active");
         }
-        //TODO
-        if (h2.getBoundingClientRect().top > 100 && h2.getBoundingClientRect().top < 250) {
+        if (top > 100 && top < 250) {
           const activeLink = links[index - 1];
           if (activeLink) {
             links.forEach((link) => link.classList.remove("active"));
@@ -149,14 +146,7 @@ const Article: NextPage<Props> = ({ article }) => {
     return () => {
       removeEventListener("scroll", cb);
     };
-  }, [test]);
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setTest(true);
-  //   }, 500);
-  // }, []);
-  /// TODO
+  }, []);
 
   if (article === null) {
     return <div>Загрузка</div>;
