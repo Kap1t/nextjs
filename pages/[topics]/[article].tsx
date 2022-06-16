@@ -119,10 +119,9 @@ const Article: NextPage<Props> = ({ article }) => {
         //   links[links.length - 1].classList.add("active");
         //   return;
         // }
-        console.log(h2);
-        console.log(index);
-        console.log(h2.id);
-        console.log(headings);
+
+        console.log(h2.getBoundingClientRect().top);
+        console.log(h2.getBoundingClientRect().bottom);
 
         if (h2.getBoundingClientRect().top < 100 && h2.getBoundingClientRect().top > 0) {
           const activeId = h2.id;
