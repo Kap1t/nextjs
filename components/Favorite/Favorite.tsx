@@ -26,7 +26,6 @@ export const Favorite: NextPage<Props> = ({ article }) => {
     setFavorite(context.user.favorites.includes(article._id));
     setDisabled(false);
   }, [article._id, context.user.favorites]);
-  console.log(router);
 
   return (
     <button

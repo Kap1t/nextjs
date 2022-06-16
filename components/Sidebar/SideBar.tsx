@@ -5,12 +5,16 @@ import { BsArrowRight, BsArrowLeft } from "react-icons/bs";
 
 const getAnchors = (str: string) => {
   const arrOfLinks = [];
-  let startTarget = "##";
+  let startTarget = "## ";
   let endTarget = "\n";
   let pos = 0;
   for (let i = 0; i < 51; i++) {
     let startFoundPos = str.indexOf(startTarget, pos);
     if (startFoundPos === -1) break;
+    if (str[startFoundPos - 1] === "#") {
+      pos = startFoundPos + 4;
+      continue;
+    }
 
     let endFoundPos = str.indexOf(endTarget, startFoundPos);
     if (endFoundPos === -1) break;
@@ -62,9 +66,7 @@ export const SideBar: NextPage<Props> = ({ article }) => {
   }, []);
 
   return (
-    // <div className={styles.sideBar} style={{ left: show ? "0" : "-300px" }}>
     <>
-      {/* <div className={styles.sideBar}> */}
       <div className={`${styles.sideBar} ${show && styles.activeSideBar}`}>
         <nav>
           <ul>
@@ -72,7 +74,9 @@ export const SideBar: NextPage<Props> = ({ article }) => {
             <li style={{ color: "#868686" }}>Навигация по уроку</li>
             {links.map((link) => (
               <li key={link.anchor}>
-                <a href={"#" + link.anchor}>{link.name}</a>
+                <a className="sideBarLink" href={"#" + link.anchor}>
+                  {link.name}
+                </a>
               </li>
             ))}
           </ul>

@@ -1,8 +1,8 @@
 import axios from "axios";
 
 class Api {
-  // private _baseApiUrl = "http://localhost:7000/api";
-  private _baseApiUrl = "https://learn-web-api.herokuapp.com/api";
+  private _baseApiUrl = "http://localhost:7000/api";
+  // private _baseApiUrl = "https://learn-web-api.herokuapp.com/api";
   private _axiosApiInstance = axios.create({ baseURL: this._baseApiUrl });
 
   private _baseThisUrl = "/api";
@@ -47,6 +47,19 @@ class ArticlesApi extends Api {
     return this.axiosApiInstance.request({
       method: "POST",
       url: `/technology/${topicID}`,
+      data: data,
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+  deleteArticleProxy(data: any) {
+    return axios.post("/api/articles/deleteArticle", {
+      data: { ...data },
+    });
+  }
+  deleteArticle(token: string, data: any) {
+    return this.axiosApiInstance.request({
+      method: "POST",
+      url: `/technology/topics/deleteArticle`,
       data: data,
       headers: { Authorization: `Bearer ${token}` },
     });

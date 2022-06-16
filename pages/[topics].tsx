@@ -12,6 +12,7 @@ import Link from "next/link";
 import axios from "axios";
 import useIsModaratorReq from "../Hooks/useIsModeratorReq";
 import { AddArticle } from "../components/AddArticle";
+import { articlesApi, revalidateApi } from "../Api/Api";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
@@ -101,12 +102,15 @@ const Topics: NextPage<Props> = ({ topics }) => {
                             onClick={() => {
                               const req = async () => {
                                 try {
-                                  //TODO BEARER
-                                  const response = await axios.post(
-                                    "http://localhost:7000/api/technology/topics/deleteArticle",
-                                    // "https://learn-web-api.herokuapp.com/api/technology/topics/deleteArticle",
-                                    { topicId: `${topic._id}`, articleRef: `${link.ref}` }
+                                  const response = await articlesApi.deleteArticleProxy({
+                                    topicId: `${topic._id}`,
+                                    articleRef: `${link.ref}`,
+                                  });
+                                  const res2 = await revalidateApi.revalidate(
+                                    `/${topic.technology}`
                                   );
+                                  console.log(res2.data);
+
                                   router.reload();
                                   console.log(response.data);
                                 } catch (error) {}

@@ -3,7 +3,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 
 import ReactMarkdown from "react-markdown";
@@ -105,6 +105,53 @@ interface Props {
 const Article: NextPage<Props> = ({ article }) => {
   const isModarator = useIsModaratorReq();
   const [markdownString, setMarkdownString] = useState(article?.content);
+
+  /// TODO
+  const [test, setTest] = useState(false);
+  useEffect(() => {
+    const headings = document.querySelectorAll(".articleLink");
+    const links = document.querySelectorAll(".sideBarLink");
+
+    const cb = () => {
+      headings.forEach((h2, index) => {
+        if (document.documentElement.scrollHeight - window.innerHeight - window.scrollY <= 20) {
+          links.forEach((link) => link.classList.remove("active"));
+          links[links.length - 1].classList.add("active");
+          return;
+        }
+        if (h2.getBoundingClientRect().top < 100 && h2.getBoundingClientRect().top > 0) {
+          const activeId = h2.id;
+          const activeLink = document.querySelector(`.sideBarLink[href="#${activeId}"]`);
+          links.forEach((link) => link.classList.remove("active"));
+          activeLink?.classList.add("active");
+        }
+        //TODO
+        if (h2.getBoundingClientRect().top > 100 && h2.getBoundingClientRect().top < 250) {
+          const activeLink = links[index - 1];
+          if (activeLink) {
+            links.forEach((link) => link.classList.remove("active"));
+
+            activeLink?.classList.add("active");
+          }
+        }
+      });
+    };
+    cb();
+
+    document.addEventListener("scroll", cb);
+
+    return () => {
+      console.log("DISCONNECT");
+    };
+  }, [test]);
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setTest(true);
+  //   }, 500);
+  // }, []);
+  /// TODO
+
   if (article === null) {
     return <div>Загрузка</div>;
   }
@@ -156,6 +203,7 @@ const Article: NextPage<Props> = ({ article }) => {
                 h2: ({ node, ...props }) => {
                   return (
                     <h2
+                      className="articleLink"
                       id={`anchor${node.position?.start?.offset}`}
                       style={{ color: "green" }}
                       {...props}
