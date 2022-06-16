@@ -116,10 +116,6 @@ const Article: NextPage<Props> = ({ article }) => {
       console.log("cb");
 
       headings.forEach((h2, index) => {
-        console.log("forEach");
-        console.log(document.documentElement.scrollHeight);
-        console.log(links);
-
         if (document.documentElement.scrollHeight - window.innerHeight - window.scrollY <= 20) {
           links.forEach((link) => link.classList.remove("active"));
           links[links.length - 1].classList.add("active");
@@ -128,6 +124,8 @@ const Article: NextPage<Props> = ({ article }) => {
         if (h2.getBoundingClientRect().top < 100 && h2.getBoundingClientRect().top > 0) {
           const activeId = h2.id;
           const activeLink = document.querySelector(`.sideBarLink[href="#${activeId}"]`);
+          console.log(activeId);
+
           links.forEach((link) => link.classList.remove("active"));
           activeLink?.classList.add("active");
         }
@@ -147,7 +145,7 @@ const Article: NextPage<Props> = ({ article }) => {
     document.addEventListener("scroll", cb);
 
     return () => {
-      console.log("DISCONNECT");
+      removeEventListener("scroll", cb);
     };
   }, [test]);
 
