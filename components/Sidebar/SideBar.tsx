@@ -74,7 +74,24 @@ export const SideBar: NextPage<Props> = ({ article }) => {
             <li style={{ color: "#868686" }}>Навигация по уроку</li>
             {links.map((link) => (
               <li key={link.anchor}>
-                <a className="sideBarLink" href={"#" + link.anchor}>
+                <a
+                  className="sideBarLink"
+                  href={"#" + link.anchor}
+                  // onClick={(e: any) => {
+                  //   const links = document.querySelectorAll(".sideBarLink");
+                  //   links.forEach((link) => link.classList.remove("active"));
+                  //   const activeLink = document.querySelector(
+                  //     `.sideBarLink[href="${e.target.hash}"]`
+                  //   );
+                  //   activeLink?.classList.add("active");
+                  // }}
+                  onClick={(e: any) => {
+                    e.preventDefault();
+                    document.querySelector(e?.target.getAttribute("href")).scrollIntoView({
+                      behavior: "smooth",
+                    });
+                  }}
+                >
                   {link.name}
                 </a>
               </li>

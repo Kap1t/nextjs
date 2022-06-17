@@ -113,7 +113,6 @@ const Article: NextPage<Props> = ({ article }) => {
     const cb = () => {
       headings.forEach((h2: any, index) => {
         //  h2.getBoundingClientRect().top не работает при деплое на vercel
-        // h2.getBoundingClientRect().top = h2.offsetTop - window.scrollY
         const top = h2.offsetTop - window.scrollY;
 
         if (document.documentElement.scrollHeight - window.innerHeight - window.scrollY <= 20) {
@@ -130,11 +129,16 @@ const Article: NextPage<Props> = ({ article }) => {
           activeLink?.classList.add("active");
         }
         if (top > 100 && top < 250) {
-          const activeLink = links[index - 1];
-          if (activeLink) {
-            links.forEach((link) => link.classList.remove("active"));
+          if (index > 0) {
+            const activeLink = links[index - 1];
+            if (activeLink) {
+              links.forEach((link) => link.classList.remove("active"));
 
-            activeLink?.classList.add("active");
+              activeLink?.classList.add("active");
+            }
+          }
+          if (index == 0) {
+            links.forEach((link) => link.classList.remove("active"));
           }
         }
       });
