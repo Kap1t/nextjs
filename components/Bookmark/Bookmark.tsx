@@ -28,15 +28,15 @@ export const Bookmark: FC<Props> = ({ bookmarks, title, category }) => {
           <li key={bookmark._id}>
             <div className={styles.link}>
               {index + 1 + ". "}
-              <div style={{ margin: "0 10px" }}>
+              <div style={{ margin: "0 10px", width: "60px", height: "30px" }}>
                 <Link href={"/" + bookmark.technology}>
                   <a>
-                    <Image
+                    <img
                       src={`/technologyImg/${bookmark.technology}.png`}
                       width="60"
                       height="30"
                       alt={bookmark.name}
-                    />
+                    ></img>
                   </a>
                 </Link>
               </div>
