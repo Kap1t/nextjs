@@ -83,7 +83,7 @@ html {
 }
 
 body {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
 }
 
 #__next {
@@ -141,9 +141,14 @@ a {
 }
 
 .sideBarLink {
-  color: rgb(0, 70, 199) !important;
+  // color: var(--link);
+  color: #fff;
+
+  &:hover {
+    color: #d8483e;
+  }
 }
 
 .active {
-  color: yellow !important;
+  color: #d8483e;
 }

@@ -18,6 +18,15 @@
       align-items: center;
     }
 
+    .a {
+      color: var(--link);
+      margin-left: 10px;
+
+      &:hover {
+        color: var(--link-hover);
+      }
+    }
+
     .delBtn {
       margin-left: auto;
       width: 30px;
@@ -31,6 +40,7 @@
         color: rgb(99, 21, 21);
       }
     }
+
   }
 }
 

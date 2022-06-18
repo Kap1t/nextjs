@@ -28,15 +28,20 @@ export const Bookmark: FC<Props> = ({ bookmarks, title, category }) => {
           <li key={bookmark._id}>
             <div className={styles.link}>
               {index + 1 + ". "}
-              <Image
-                src={`/technologyImg/${bookmark.technology}.png`}
-                width="60"
-                height="30"
-                alt={bookmark.name}
-              />
-
+              <div style={{ margin: "0 10px" }}>
+                <Link href={"/" + bookmark.technology}>
+                  <a>
+                    <Image
+                      src={`/technologyImg/${bookmark.technology}.png`}
+                      width="60"
+                      height="30"
+                      alt={bookmark.name}
+                    />
+                  </a>
+                </Link>
+              </div>
               <Link href={"/" + bookmark.technology + "/" + bookmark.ref}>
-                <a>{bookmark.name}</a>
+                <a className={styles.a}>{bookmark.name}</a>
               </Link>
 
               <button
@@ -45,7 +50,6 @@ export const Bookmark: FC<Props> = ({ bookmarks, title, category }) => {
                   switch (category) {
                     case "favorites":
                       try {
-                        console.log("try");
                         const req = async () => {
                           const res = await userApi.removeFromFavoritesProxy(bookmark._id);
                           const updBookmarks = bookmarksState.filter(

@@ -77,19 +77,14 @@ export const SideBar: NextPage<Props> = ({ article }) => {
                 <a
                   className="sideBarLink"
                   href={"#" + link.anchor}
-                  // onClick={(e: any) => {
-                  //   const links = document.querySelectorAll(".sideBarLink");
-                  //   links.forEach((link) => link.classList.remove("active"));
-                  //   const activeLink = document.querySelector(
-                  //     `.sideBarLink[href="${e.target.hash}"]`
-                  //   );
-                  //   activeLink?.classList.add("active");
-                  // }}
                   onClick={(e: any) => {
                     e.preventDefault();
                     document.querySelector(e?.target.getAttribute("href")).scrollIntoView({
                       behavior: "smooth",
                     });
+                    if (window.innerWidth < 700) {
+                      setShow(false);
+                    }
                   }}
                 >
                   {link.name}
@@ -99,6 +94,7 @@ export const SideBar: NextPage<Props> = ({ article }) => {
           </ul>
           <button
             className={styles.showBtn}
+            style={{ right: `${show ? "0px" : "-60px"}` }}
             onClick={() => {
               if (window.innerWidth < 700) {
                 setShow(!show);

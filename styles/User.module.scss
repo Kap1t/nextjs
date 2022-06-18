@@ -3,3 +3,21 @@
   padding: 0 15px;
   max-width: 1000px;
 }
+
+.logOutBtn {
+  height: 25px;
+  width: 155px;
+  margin: 12px 0;
+  border-radius: 5px;
+  border: 1px solid var(--submit-btn-text);
+  cursor: pointer;
+  color: var(--submit-btn-text);
+  background-color: var(--submit-btn);
+  transition: all 0.4s;
+
+  &:hover {
+    background-color: var(--submit-btn-text);
+    border: 1px solid var(--submit-btn);
+    color: var(--submit-btn);
+  }
+}

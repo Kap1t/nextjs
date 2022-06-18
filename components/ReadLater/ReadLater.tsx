@@ -34,7 +34,7 @@ export const ReadLater: NextPage<Props> = ({ article }) => {
       disabled={disabled}
       onClick={() => {
         if (context.user.isAuth !== true) {
-          router.push("/auth/signup");
+          router.push("/auth/login");
           return;
         }
         if (context.user.readLater.includes(article._id)) {

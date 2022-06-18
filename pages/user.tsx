@@ -4,10 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { userApi } from "../Api/Api";
 import MainLayout from "../components/MainLayout";
 import { mainContext } from "../Context/ContextWrapper";
-import Link from "next/link";
-import Image from "next/image";
 import styles from "../styles/User.module.scss";
-import { AiOutlineDelete } from "react-icons/ai";
 import { Bookmark } from "../components/Bookmark/Bookmark";
 
 interface User {
@@ -69,32 +66,31 @@ const User: NextPage = () => {
             <>
               <h2>Привет, {user?.name}</h2>
               <p>Email: {user?.email}</p>
+              <button
+                className={styles.logOutBtn}
+                onClick={() => {
+                  try {
+                    const req = async () => {
+                      await userApi.logOut();
+                      router.reload();
+                    };
+                    req();
+                  } catch (error) {
+                    console.log(error);
+                  }
+                }}
+              >
+                Выйти из аккаунта
+              </button>
+            </>
+          )}
+
+          {user && (
+            <>
               <Bookmark bookmarks={user.favoritesLinks} title="Избранное" category="favorites" />
               <Bookmark bookmarks={user.readLaterLinks} title="Читать позже" category="readLater" />
             </>
           )}
-          <button
-            onClick={() => {
-              router.reload();
-            }}
-          >
-            reload
-          </button>
-          <button
-            onClick={() => {
-              try {
-                const req = async () => {
-                  await userApi.logOut();
-                  router.reload();
-                };
-                req();
-              } catch (error) {
-                console.log(error);
-              }
-            }}
-          >
-            Выйти
-          </button>
         </section>
       )}
     </MainLayout>
