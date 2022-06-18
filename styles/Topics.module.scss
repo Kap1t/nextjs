@@ -28,9 +28,12 @@
     padding-left: 20px;
     counter-reset: list;
     columns: 3;
+    margin-bottom: 20px;
 
     li {
       display: block;
+      position: relative;
+      padding-right: 30px;
     }
 
     li:before {
@@ -39,7 +42,29 @@
       counter-increment: list;
       content: counters(list, ".") " ";
     }
+
   }
+}
+
+.delBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  cursor: pointer;
+  color: var(--text);
+
+  &:hover {
+    color: red;
+  }
+
 }
 
 .a {
@@ -50,6 +75,8 @@
     color: var(--link-hover);
   }
 }
+
+
 
 .submitBtn {
   height: 25px;

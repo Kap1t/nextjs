@@ -13,6 +13,7 @@ import axios from "axios";
 import useIsModaratorReq from "../Hooks/useIsModeratorReq";
 import { AddArticle } from "../components/AddArticle";
 import { articlesApi, revalidateApi } from "../Api/Api";
+import { AiOutlineDelete } from "react-icons/ai";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
@@ -95,10 +96,12 @@ const Topics: NextPage<Props> = ({ topics }) => {
                       <Link href={`${router.asPath}/${link.ref}`}>
                         <a className={styles.a}>{link.name}</a>
                       </Link>
+
                       {isModarator && (
                         <>
-                          <span>{" " + link.ref}</span>
+                          {/* <span>{" " + link.ref}</span> */}
                           <button
+                            className={styles.delBtn}
                             onClick={() => {
                               const req = async () => {
                                 try {
@@ -118,8 +121,8 @@ const Topics: NextPage<Props> = ({ topics }) => {
                               req();
                             }}
                           >
-                            Del
-                          </button>{" "}
+                            <AiOutlineDelete size="20px" />
+                          </button>
                         </>
                       )}
                     </li>

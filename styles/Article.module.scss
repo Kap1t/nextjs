@@ -82,6 +82,33 @@
   }
 }
 
+@media screen and (max-width: 1200px) {
+
+  .articleSection2 {
+    padding-left: calc(var(--padding) - 50px);
+  }
+}
+
+@media screen and (max-width: 1000px) {
+
+  .articleSection2 {
+    padding-left: calc(var(--padding) - 75px);
+  }
+}
+
+
+@media screen and (max-width: 900px) {
+
+  .pre {
+    font-size: 1.5rem;
+  }
+
+  .articleSection {
+    padding: 0 7px;
+    margin: 30px auto 0;
+  }
+}
+
 @media screen and (max-width: 900px) {
 
   .pre {

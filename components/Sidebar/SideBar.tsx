@@ -114,7 +114,7 @@ export const SideBar: NextPage<Props> = ({ article }) => {
             }}
           >
             {show ? (
-              <BsArrowLeft size="40px" color="var(--text)" />
+              <BsArrowLeft size="40px" color="white" />
             ) : (
               <BsArrowRight size="40px" color="var(--text)" />
             )}

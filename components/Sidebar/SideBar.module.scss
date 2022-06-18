@@ -18,7 +18,7 @@
   .showBtn {
     position: absolute;
     top: 70px;
-    right: -70px;
+    right: -60px;
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -35,25 +35,25 @@
 }
 
 
-
-
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 1200px) {
   .sideBar {
     width: 250px;
     left: -250px;
-
-    .showBtn {
-      right: -50px;
-    }
-
-    ul {
-      padding-left: 10px;
-    }
   }
 
   .activeSideBar {
     left: 0;
   }
+}
+
+@media screen and (max-width: 1000px) {
+  .sideBar {
+    width: 225px;
+    left: -225px;
+  }
 
 
+  .activeSideBar {
+    left: 0;
+  }
 }
