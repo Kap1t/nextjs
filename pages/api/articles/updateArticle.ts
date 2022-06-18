@@ -10,9 +10,14 @@ export default async function updateArticle(req: NextApiRequest, res: NextApiRes
         req.body.data.articleId,
         req.body.data.content
       );
-      console.log(`${req.body.data.revalidateRef}`);
+      // console.log(`${req.body.data.revalidateRef}`);
 
       await res.unstable_revalidate(`${req.body.data.revalidateRef}`);
+      await new Promise((resolve) => {
+        setTimeout(() => {
+          resolve("ok");
+        }, 1500);
+      });
 
       res.status(200).json({ message: "Article updated successfully" });
     } catch (error: any) {
