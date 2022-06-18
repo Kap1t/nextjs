@@ -127,7 +127,7 @@ const Article: NextPage<Props> = ({ article }) => {
         const top = h2.offsetTop - window.scrollY;
         if (document.documentElement.scrollHeight - window.innerHeight - window.scrollY <= 20) {
           links.forEach((link) => link.classList.remove("active"));
-          links[links.length - 1].classList.add("active");
+          links[links.length - 1]?.classList.add("active");
           return;
         }
 

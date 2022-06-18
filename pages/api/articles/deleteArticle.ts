@@ -5,7 +5,10 @@ import generateCookie from "../../../Api/GenerateCookie";
 export default async function updateArticle(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     try {
-      await articlesApi.deleteArticle(req.cookies.token, req.body.data);
+      await articlesApi.deleteArticle(req.cookies.token, req.body.data.data);
+      console.log(`${req.body.data.revalidateRef}`);
+
+      await res.unstable_revalidate(`${req.body.data.revalidateRef}`);
       res.status(200).json({ message: "Article updated successfully" });
     } catch (error: any) {
       if (error.response.status === 401) {

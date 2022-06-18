@@ -5,11 +5,15 @@ import generateCookie from "../../../Api/GenerateCookie";
 export default async function updateArticle(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "PUT") {
     try {
-      const response = await articlesApi.updateArticle(
+      await articlesApi.updateArticle(
         req.cookies.token,
         req.body.data.articleId,
         req.body.data.content
       );
+      console.log(`${req.body.data.revalidateRef}`);
+
+      await res.unstable_revalidate(`${req.body.data.revalidateRef}`);
+
       res.status(200).json({ message: "Article updated successfully" });
     } catch (error: any) {
       if (error.response.status === 401) {

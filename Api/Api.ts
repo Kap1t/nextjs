@@ -27,8 +27,10 @@ class RevalidateApi extends Api {
 }
 
 class ArticlesApi extends Api {
-  updateArticleProxy(articleId: string, content: string) {
-    return axios.put("/api/articles/updateArticle", { data: { articleId, content } });
+  updateArticleProxy(articleId: string, content: string, revalidateRef: string) {
+    return axios.put("/api/articles/updateArticle", {
+      data: { articleId, content, revalidateRef },
+    });
   }
   updateArticle(token: string, articleId: string, content: string) {
     return this.axiosApiInstance.request({
@@ -38,9 +40,9 @@ class ArticlesApi extends Api {
       headers: { Authorization: `Bearer ${token}` },
     });
   }
-  addArticleProxy(topicID: string, data: any) {
+  addArticleProxy(topicID: string, data: any, revalidateRef: string) {
     return axios.post("/api/articles/addArticle", {
-      data: { topicID, data },
+      data: { topicID, data, revalidateRef },
     });
   }
   addArticle(token: string, topicID: string, data: any) {
@@ -51,9 +53,9 @@ class ArticlesApi extends Api {
       headers: { Authorization: `Bearer ${token}` },
     });
   }
-  deleteArticleProxy(data: any) {
+  deleteArticleProxy(data: any, revalidateRef: string) {
     return axios.post("/api/articles/deleteArticle", {
-      data: { ...data },
+      data: { data, revalidateRef },
     });
   }
   deleteArticle(token: string, data: any) {

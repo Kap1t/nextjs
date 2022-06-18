@@ -39,14 +39,15 @@ export const AddArticle: NextPage<Props> = ({ topic }) => {
             e.preventDefault();
             const req = async () => {
               try {
-                const response = await articlesApi.addArticleProxy(`${topic._id}`, {
-                  technology: topic.technology,
-                  name: e.target[0].value,
-                  ref: e.target[1].value,
-                });
-                console.log(response.data);
-                const res2 = await revalidateApi.revalidate(`/${topic.technology}`);
-                console.log(res2.data);
+                const response = await articlesApi.addArticleProxy(
+                  `${topic._id}`,
+                  {
+                    technology: topic.technology,
+                    name: e.target[0].value,
+                    ref: e.target[1].value,
+                  },
+                  `/${topic.technology}`
+                );
                 router.reload();
               } catch (error: any) {
                 console.log(error.response.data.message);

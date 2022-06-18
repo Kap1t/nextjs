@@ -105,15 +105,13 @@ const Topics: NextPage<Props> = ({ topics }) => {
                             onClick={() => {
                               const req = async () => {
                                 try {
-                                  const response = await articlesApi.deleteArticleProxy({
-                                    topicId: `${topic._id}`,
-                                    articleRef: `${link.ref}`,
-                                  });
-                                  const res2 = await revalidateApi.revalidate(
+                                  const response = await articlesApi.deleteArticleProxy(
+                                    {
+                                      topicId: `${topic._id}`,
+                                      articleRef: `${link.ref}`,
+                                    },
                                     `/${topic.technology}`
                                   );
-                                  console.log(res2.data);
-
                                   router.reload();
                                   console.log(response.data);
                                 } catch (error) {}

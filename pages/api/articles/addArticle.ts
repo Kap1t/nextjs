@@ -1,11 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { articlesApi } from "../../../Api/Api";
+import { articlesApi, revalidateApi } from "../../../Api/Api";
 import generateCookie from "../../../Api/GenerateCookie";
 
 export default async function updateArticle(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     try {
       await articlesApi.addArticle(req.cookies.token, req.body.data.topicID, req.body.data.data);
+      await res.unstable_revalidate(`${req.body.data.revalidateRef}`);
+      console.log(`revalidated ${req.body.data.revalidateRef}`);
+
       res.status(200).json({ message: "Article updated successfully" });
     } catch (error: any) {
       if (error.response.status === 401) {
