@@ -14,10 +14,15 @@ export default async function updateArticle(req: NextApiRequest, res: NextApiRes
       await new Promise((resolve) => {
         setTimeout(() => {
           resolve("ok");
-        }, 1500);
+        }, 1700);
       });
 
       await res.unstable_revalidate(`${req.body.data.revalidateRef}`);
+      await new Promise((resolve) => {
+        setTimeout(() => {
+          resolve("ok");
+        }, 1700);
+      });
 
       res.status(200).json({ message: "Article updated successfully" });
     } catch (error: any) {
