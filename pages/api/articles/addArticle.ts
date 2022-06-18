@@ -8,7 +8,11 @@ export default async function updateArticle(req: NextApiRequest, res: NextApiRes
       await articlesApi.addArticle(req.cookies.token, req.body.data.topicID, req.body.data.data);
       await res.unstable_revalidate(`${req.body.data.revalidateRef}`);
       console.log(`revalidated ${req.body.data.revalidateRef}`);
-
+      await new Promise((resolve) => {
+        setTimeout(() => {
+          resolve("ok");
+        }, 1000);
+      });
       res.status(200).json({ message: "Article updated successfully" });
     } catch (error: any) {
       if (error.response.status === 401) {

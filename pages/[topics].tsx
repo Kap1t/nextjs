@@ -113,6 +113,7 @@ const Topics: NextPage<Props> = ({ topics }) => {
                                     `/${topic.technology}`
                                   );
                                   router.reload();
+
                                   console.log(response.data);
                                 } catch (error) {}
                               };
