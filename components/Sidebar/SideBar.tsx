@@ -1,7 +1,9 @@
 import { NextPage } from "next";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./SideBar.module.scss";
 import { BsArrowRight, BsArrowLeft } from "react-icons/bs";
+import useActiveSideBar from "../../Hooks/useActiveSideBar";
+import useShowSideBar from "../../Hooks/useShowSideBar";
 
 const getAnchors = (str: string) => {
   const arrOfLinks = [];
@@ -18,7 +20,6 @@ const getAnchors = (str: string) => {
 
     let endFoundPos = str.indexOf(endTarget, startFoundPos);
     if (endFoundPos === -1) break;
-    //TODO ограничение на длинну
     arrOfLinks.push({
       name: str.slice(startFoundPos + 3, endFoundPos + 1),
       anchor: `anchor${startFoundPos}`,
@@ -41,29 +42,8 @@ interface Props {
 export const SideBar: NextPage<Props> = ({ article }) => {
   const [show, setShow] = useState(false);
   const [links] = useState(getAnchors(article.content));
-  useEffect(() => {
-    if (window.innerWidth > 700) {
-      if (!(localStorage.getItem("showBig") == "false")) {
-        setShow(true);
-        document.body.setAttribute("showSidebar", "");
-      }
-    }
-
-    const handlerOnResize = () => {
-      if (window.innerWidth < 700) {
-        setShow(false);
-      } else {
-        if (!(localStorage.getItem("showBig") == "false")) {
-          setShow(true);
-        }
-      }
-    };
-    window.addEventListener("resize", handlerOnResize);
-
-    return () => {
-      window.removeEventListener("resize", handlerOnResize);
-    };
-  }, []);
+  useActiveSideBar();
+  useShowSideBar(setShow);
 
   return (
     <>
