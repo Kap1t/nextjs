@@ -2,7 +2,6 @@ import axios from "axios";
 
 class Api {
   // private _baseApiUrl = "http://localhost:7000/api";
-
   private _baseApiUrl = "https://learn-web-api.herokuapp.com/api";
   private _axiosApiInstance = axios.create({ baseURL: this._baseApiUrl });
 
