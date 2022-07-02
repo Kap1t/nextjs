@@ -1,5 +1,3 @@
-## TODO
-
 ## Description
 
 ### Server side generation
