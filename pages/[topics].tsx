@@ -65,6 +65,7 @@ interface Topic {
   technology: string;
   header: string;
   list: {
+    _id: string;
     name: string;
     ref: string;
   }[];
@@ -107,8 +108,8 @@ const Topics: NextPage<Props> = ({ topics }) => {
                                 try {
                                   const response = await articlesApi.deleteArticleProxy(
                                     {
-                                      topicId: `${topic._id}`,
-                                      articleRef: `${link.ref}`,
+                                      topicID: `${topic._id}`,
+                                      articleID: `${link._id}`,
                                     },
                                     `/${topic.technology}`
                                   );
