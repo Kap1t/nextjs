@@ -24,8 +24,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   try {
     const response2 = await fetch(`${process.env.HOST_API}/api/technology`);
     const technology = await response2.json();
-    const response = await fetch(`${process.env.HOST}/api/articlesList`);
-    const datas = await response.json();
+    // const response = await fetch(`${process.env.HOST}/api/articlesList`);
+    // const datas = await response.json();
     const response3 = await fetch(`${process.env.HOST_API}/api/technology/alltopics`);
     const alltopics = await response3.json();
 
