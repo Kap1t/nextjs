@@ -48,7 +48,7 @@ class ArticlesApi extends Api {
   addArticle(token: string, topicID: string, data: any) {
     return this.axiosApiInstance.request({
       method: "POST",
-      url: `/technology/${topicID}`,
+      url: `/technology/topics/${topicID}`,
       data: data,
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -112,7 +112,7 @@ class UsersApi extends Api {
   getUserData(token: string) {
     return this.axiosApiInstance.request({
       method: "GET",
-      url: `/users/getUser`,
+      url: `/users/getUserWithFL`,
       headers: { Authorization: `Bearer ${token}` },
     });
   }

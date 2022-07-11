@@ -43,7 +43,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     );
     const topics: Topic[] = response.data;
 
-    if (!topics) {
+    if (!topics.length) {
       return {
         notFound: true,
       };

@@ -56,13 +56,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     return {
       paths,
-      // fallback: false,
       fallback: "blocking",
     };
   } catch (error) {}
   return {
     paths: [],
-    // fallback: false,
     fallback: "blocking",
   };
 };
@@ -70,7 +68,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
     const response = await fetch(
-      `${process.env.HOST_API}/api/technology/${context.params?.topics}/${context.params?.article}`
+      // `${process.env.HOST_API}/api/technology/${context.params?.topics}/${context.params?.article}`
+      `${process.env.HOST_API}/api/technology/topics/${context.params?.article}`
     );
     const article = await response.json();
     if (!article) {
@@ -84,7 +83,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
     };
   } catch (error) {
     return {
-      props: { article: null },
+      notFound: true,
+      // props: { article: null },
       // revalidate: 10,
     };
   }
