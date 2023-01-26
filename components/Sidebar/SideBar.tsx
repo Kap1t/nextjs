@@ -50,7 +50,7 @@ export const SideBar: NextPage<Props> = ({ article }) => {
       <div className={`${styles.sideBar} ${show && styles.activeSideBar}`}>
         <nav>
           <ul>
-            <li style={{ color: "#868686" }}>Раздел</li>
+            {/* <li style={{ color: "#868686" }}>Раздел</li> */}
             <li style={{ color: "#868686" }}>Навигация по уроку</li>
             {links.map((link) => (
               <li key={link.anchor}>

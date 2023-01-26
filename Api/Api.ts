@@ -2,7 +2,9 @@ import axios from "axios";
 
 class Api {
   // private _baseApiUrl = "http://localhost:7000/api";
-  private _baseApiUrl = "https://learn-web-api.herokuapp.com/api";
+  // private _baseApiUrl = "https://learn-web-api.herokuapp.com/api";
+  private _baseApiUrl = "https://learnwebserver.onrender.com/api";
+
   private _axiosApiInstance = axios.create({ baseURL: this._baseApiUrl });
 
   private _baseThisUrl = "/api";
@@ -53,6 +55,19 @@ class ArticlesApi extends Api {
       headers: { Authorization: `Bearer ${token}` },
     });
   }
+  addTopicProxy(data: { technology: string; header: string }, revalidateRef: string) {
+    return axios.post("/api/articles/addTopic", {
+      data: { data, revalidateRef },
+    });
+  }
+  addTopic(token: string, data: { technology: string; header: string }) {
+    return this.axiosApiInstance.request({
+      method: "POST",
+      url: `/technology/createTopic`,
+      data: data,
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
   deleteArticleProxy(data: any, revalidateRef: string) {
     return axios.post("/api/articles/deleteArticle", {
       data: { data, revalidateRef },
@@ -64,6 +79,11 @@ class ArticlesApi extends Api {
       url: `/technology/topics/deleteArticle`,
       data: data,
       headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+  proxyApi() {
+    return axios.post("/api/proxyApi", {
+      data: "deleteArticle",
     });
   }
 }

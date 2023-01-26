@@ -12,14 +12,15 @@ import Link from "next/link";
 import axios from "axios";
 import useIsModaratorReq from "../Hooks/useIsModeratorReq";
 import { AddArticle } from "../components/AddArticle";
-import { articlesApi, revalidateApi } from "../Api/Api";
-import { AiOutlineDelete } from "react-icons/ai";
+import { AddTopic } from "../components/AddTopic";
+
+import { DeleteArticleBtn } from "../components/DeleteArticleBtn";
+import { articlesApi } from "../Api/Api";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
     const response = await fetch(`${process.env.HOST_API}/api/technology`);
     const technologies = await response.json();
-    // console.log(technologies);
     const paths = technologies.map((oneTechnology: any) => ({
       params: { topics: oneTechnology.ref },
     }));
@@ -54,7 +55,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
     };
   } catch (error) {
     return {
-      props: { topics: null },
+      notFound: true,
+      // props: { topics: null },
       // revalidate: 60,
     };
   }
@@ -79,14 +81,14 @@ const Topics: NextPage<Props> = ({ topics }) => {
   const router = useRouter();
   const isModarator = useIsModaratorReq();
 
-  if (topics === null) {
-    return <div>Загрузка</div>;
-  }
   return (
     <MainLayout title={router.query.technology || "learnweb"}>
       <section className={styles.article}>
         <h1 className={styles.h1}>{router.query.technology}</h1>
-        <ul className={styles.ol1}>
+
+        <div>{isModarator && <AddTopic />}</div>
+
+        <ul className={styles.ul}>
           {topics.map((topic, index) => {
             return (
               <li key={index} className={styles.li1}>
@@ -99,31 +101,11 @@ const Topics: NextPage<Props> = ({ topics }) => {
                       </Link>
 
                       {isModarator && (
-                        <>
-                          {/* <span>{" " + link.ref}</span> */}
-                          <button
-                            className={styles.delBtn}
-                            onClick={() => {
-                              const req = async () => {
-                                try {
-                                  const response = await articlesApi.deleteArticleProxy(
-                                    {
-                                      topicID: `${topic._id}`,
-                                      articleID: `${link._id}`,
-                                    },
-                                    `/${topic.technology}`
-                                  );
-                                  router.reload();
-
-                                  console.log(response.data);
-                                } catch (error) {}
-                              };
-                              req();
-                            }}
-                          >
-                            <AiOutlineDelete size="20px" />
-                          </button>
-                        </>
+                        <DeleteArticleBtn
+                          topicID={topic._id}
+                          articleID={link._id}
+                          revalidateRef={`/${topic.technology}`}
+                        />
                       )}
                     </li>
                   ))}
@@ -133,6 +115,13 @@ const Topics: NextPage<Props> = ({ topics }) => {
             );
           })}
         </ul>
+        <button
+          onClick={async () => {
+            try {
+              await articlesApi.proxyApi();
+            } catch {}
+          }}
+        ></button>
       </section>
     </MainLayout>
   );

@@ -12,7 +12,7 @@
   margin: 15px 0 15px;
 }
 
-.ol1 {
+.ul {
   margin-top: 35px;
   counter-reset: list;
   list-style: none;
@@ -117,8 +117,30 @@
   }
 }
 
+.showAddTopicForm {
+  text-align: left;
+}
+
+.addTopicForm {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  input {
+    width: 80%;
+    max-width: 400px;
+    min-width: 200px;
+    border-radius: 5px;
+    border: 1px solid var(--input-border);
+    height: 25px;
+    padding: 0 7px;
+    margin-bottom: 10px;
+  }
+}
+
 @media screen and (max-width: 900px) {
-  .ol1 {
+  .ul {
     ol {
       columns: 2;
     }
@@ -126,7 +148,7 @@
 }
 
 @media screen and (max-width: 600px) {
-  .ol1 {
+  .ul {
     ol {
       columns: 1;
     }

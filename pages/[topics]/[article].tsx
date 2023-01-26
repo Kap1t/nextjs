@@ -90,9 +90,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 };
 
-const date = (dateFromApi: string) => {
-  return new Date(dateFromApi).toLocaleString();
-};
 interface Props {
   article: {
     _id: string;

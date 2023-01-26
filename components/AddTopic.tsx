@@ -2,26 +2,16 @@ import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import React from "react";
 import { useState } from "react";
-import { articlesApi, revalidateApi } from "../Api/Api";
+import { articlesApi } from "../Api/Api";
 import styles from "../styles/Topics.module.scss";
 
-interface Props {
-  topic: {
-    _id: string;
-    technology: string;
-    header: string;
-    list: {
-      name: string;
-      ref: string;
-    }[];
-  };
-}
-export const AddArticle: NextPage<Props> = React.memo(({ topic }) => {
+export const AddTopic: NextPage = React.memo(() => {
   const router = useRouter();
   const [showForm, setShowForm] = useState(false);
+
   return (
     <>
-      <div className={styles.showAddArticleForm}>
+      <div className={styles.showAddTopicForm}>
         {!showForm && (
           <button
             className={styles.submitBtn}
@@ -29,25 +19,23 @@ export const AddArticle: NextPage<Props> = React.memo(({ topic }) => {
               setShowForm(!showForm);
             }}
           >
-            Создать статью
+            Создать тему
           </button>
         )}
       </div>
       {showForm && (
         <form
-          className={styles.addArticleForm}
+          className={styles.addTopicForm}
           onSubmit={(e: any) => {
             e.preventDefault();
             const req = async () => {
               try {
-                await articlesApi.addArticleProxy(
-                  `${topic._id}`,
+                await articlesApi.addTopicProxy(
                   {
-                    technology: topic.technology,
-                    name: e.target[0].value,
-                    ref: e.target[1].value,
+                    technology: router.query.topics as string,
+                    header: e.target[0].value,
                   },
-                  `/${topic.technology}`
+                  `/${router.query.topics}`
                 );
                 router.reload();
               } catch (error: any) {
@@ -58,10 +46,9 @@ export const AddArticle: NextPage<Props> = React.memo(({ topic }) => {
             req();
           }}
         >
-          <input required type="text" placeholder="name" />
-          <input required type="text" placeholder="ref" />
+          <input required type="text" placeholder="header" />
           <button className={styles.submitBtn} type="submit">
-            Создать статью
+            Создать тему
           </button>
         </form>
       )}
