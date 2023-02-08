@@ -38,6 +38,7 @@ interface Props {
     content: string;
     updatedAt: string;
   };
+  upd: boolean;
 }
 export const SideBar: NextPage<Props> = ({ article }) => {
   const [show, setShow] = useState(false);

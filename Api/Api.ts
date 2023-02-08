@@ -4,7 +4,6 @@ class Api {
   // private _baseApiUrl = "http://localhost:7000/api";
   // private _baseApiUrl = "https://learn-web-api.herokuapp.com/api";
   private _baseApiUrl = "https://learnwebserver.onrender.com/api";
-
   private _axiosApiInstance = axios.create({ baseURL: this._baseApiUrl });
 
   private _baseThisUrl = "/api";
@@ -116,79 +115,55 @@ class UsersApi extends Api {
   logOut() {
     return axios.post("/api/auth/logout");
   }
-  checkIsModaratorProxy() {
-    return axios.post("/api/auth/checkIsmoderator");
-  }
-  checkIsModarator(token: string) {
-    return this.axiosApiInstance.request({
-      method: "GET",
+  checkIsModarator() {
+    return axios.post("/api/universalGet", {
       url: `/users/checkIsModarator`,
-      headers: { Authorization: `Bearer ${token}` },
-    });
-  }
-  getUserDataProxy() {
-    return axios.post("/api/user/getUser");
-  }
-  getUserData(token: string) {
-    return this.axiosApiInstance.request({
-      method: "GET",
-      url: `/users/getUserWithFL`,
-      headers: { Authorization: `Bearer ${token}` },
-    });
-  }
-  addToFavoritesProxy(articleId: string) {
-    return axios.post("/api/user/addToFavorites", {
-      data: { articleId },
-    });
-  }
-  addToFavorites(token: string, articleId: string) {
-    return this.axiosApiInstance.request({
-      method: "GET",
-      url: `/users/addToFavorites/${articleId}`,
-      headers: { Authorization: `Bearer ${token}` },
-    });
-  }
-  removeFromFavoritesProxy(articleId: string) {
-    return axios.post("/api/user/removeFromFavorites", {
-      data: { articleId },
-    });
-  }
-  removeFromFavorites(token: string, articleId: string) {
-    return this.axiosApiInstance.request({
-      method: "GET",
-      url: `/users/removeFromFavorites/${articleId}`,
-      headers: { Authorization: `Bearer ${token}` },
-    });
-  }
-  addToReadLaterProxy(articleId: string) {
-    return axios.post("/api/user/addToReadLater", {
-      data: { articleId },
-    });
-  }
-  addToReadLater(token: string, articleId: string) {
-    return this.axiosApiInstance.request({
-      method: "GET",
-      url: `/users/addToReadLater/${articleId}`,
-      headers: { Authorization: `Bearer ${token}` },
-    });
-  }
-  removeFromReadLaterProxy(articleId: string) {
-    return axios.post("/api/user/removeFromReadLater", {
-      data: { articleId },
-    });
-  }
-  removeFromReadLater(token: string, articleId: string) {
-    return this.axiosApiInstance.request({
-      method: "GET",
-      url: `/users/removeFromReadLater/${articleId}`,
-      headers: { Authorization: `Bearer ${token}` },
     });
   }
   checkIsAuth() {
+    return axios.post("/api/universalGet", {
+      url: `/users/checkIsAuth`,
+    });
+  }
+  getUserDataProxy() {
+    return axios.post("/api/universalGet", {
+      url: `/users/getUserWithFL`,
+    });
+  }
+  // TODO вынести выше
+  universalGet(url: string, token: string) {
     return this.axiosApiInstance.request({
       method: "GET",
-      url: `/users/checkIsAuth`,
-      withCredentials: true,
+      url: url,
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+  universalPost(url: string, token: string, data: any) {
+    return this.axiosApiInstance.request({
+      method: "POST",
+      url: url,
+      data: data,
+    });
+  }
+
+  addToFavoritesProxy(articleId: string) {
+    return axios.post("/api/universalGet", {
+      url: `/users/addToFavorites/${articleId}`,
+    });
+  }
+  removeFromFavoritesProxy(articleId: string) {
+    return axios.post("/api/universalGet", {
+      url: `/users/removeFromFavorites/${articleId}`,
+    });
+  }
+  addToReadLaterProxy(articleId: string) {
+    return axios.post("/api/universalGet", {
+      url: `/users/addToReadLater/${articleId}`,
+    });
+  }
+  removeFromReadLaterProxy(articleId: string) {
+    return axios.post("/api/universalGet", {
+      url: `/users/removeFromReadLater/${articleId}`,
     });
   }
 }

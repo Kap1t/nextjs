@@ -113,7 +113,7 @@ const Article: NextPage<Props> = ({ article }) => {
     <MainLayout title={article?.name || "learn-web"}>
       <section className={styles.articleSection2}>
         <div className={styles.articleSection}>
-          <SideBar article={article} />
+          <SideBar article={article} upd={isModarator} />
           <div className={styles.ReactMarkdownBlock}>
             <div className={styles.createdAt}>
               {/* {"Обновлено: " + new Date(article.updatedAt).toLocaleDateString()} */}

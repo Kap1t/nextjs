@@ -39,7 +39,7 @@ export default function useIsModaratorReq() {
 
     const req = async () => {
       try {
-        await userApi.checkIsModaratorProxy();
+        await userApi.checkIsModarator();
         setIsModarator(true);
       } catch (error: any) {
         console.log(error);
