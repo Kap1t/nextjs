@@ -5,7 +5,7 @@ export default function useActiveSideBar() {
   useEffect(() => {
     const timeOut = setTimeout(() => {
       setCheck(true);
-    }, 2500);
+    }, 1000);
     return () => {
       clearTimeout(timeOut);
     };
@@ -56,7 +56,7 @@ export default function useActiveSideBar() {
     document.addEventListener("scroll", cb);
 
     return () => {
-      removeEventListener("scroll", cb);
+      document.removeEventListener("scroll", cb);
     };
   }, [check]);
 }
