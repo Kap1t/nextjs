@@ -5,7 +5,7 @@ export default function useActiveSideBar() {
   useEffect(() => {
     const timeOut = setTimeout(() => {
       setCheck(true);
-    }, 250);
+    }, 2500);
     return () => {
       clearTimeout(timeOut);
     };
@@ -17,6 +17,8 @@ export default function useActiveSideBar() {
     const links = document.querySelectorAll(".sideBarLink");
 
     const cb = () => {
+      console.log(document.documentElement.scrollHeight, window.innerHeight, window.scrollY);
+
       headings.forEach((h2: any, index) => {
         //  h2.getBoundingClientRect().top не работает при деплое на vercel
         const top = h2.offsetTop - window.scrollY;
@@ -49,8 +51,8 @@ export default function useActiveSideBar() {
         }
       });
     };
-    cb();
-
+    cb(); // ?
+    console.log("add event listener");
     document.addEventListener("scroll", cb);
 
     return () => {

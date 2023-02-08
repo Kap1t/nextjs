@@ -45,7 +45,6 @@ export const SideBar: NextPage<Props> = ({ article }) => {
   const [links] = useState(getAnchors(article.content));
   useActiveSideBar();
   useShowSideBar(setShow);
-
   return (
     <>
       <div className={`${styles.sideBar} ${show && styles.activeSideBar}`}>
