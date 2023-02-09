@@ -16,10 +16,15 @@ export default async function universalGet(req: NextApiRequest, res: NextApiResp
   // if (req.method === "POST") {
   try {
     const response = await userApi.universalPost(req.body.url, req.cookies.token, req.body.data);
+    if (req.body?.revalidateRef) {
+      console.log(req.body?.revalidateRef);
+      await res.unstable_revalidate(`${req.body.revalidateRef}`);
+    }
+
     res.status(200).json(response.data || { message: "success" });
   } catch (error: any) {
     // Todo проверка error ?
-    if (error.response.status === 401) {
+    if (error?.response?.status === 401) {
       console.log(401);
       logOut(res);
       return;

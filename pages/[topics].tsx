@@ -115,13 +115,6 @@ const Topics: NextPage<Props> = ({ topics }) => {
             );
           })}
         </ul>
-        <button
-          onClick={async () => {
-            try {
-              await articlesApi.proxyApi();
-            } catch {}
-          }}
-        ></button>
       </section>
     </MainLayout>
   );

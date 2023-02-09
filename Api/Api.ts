@@ -14,6 +14,29 @@ class Api {
   get axiosThisInstance() {
     return this._axiosThisInstance;
   }
+  universalGet(url: string, token: string) {
+    return this.axiosApiInstance.request({
+      method: "GET",
+      url: url,
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+  universalPost(url: string, token: string, data: any) {
+    return this.axiosApiInstance.request({
+      method: "POST",
+      url: url,
+      data: data,
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
+  universalPut(url: string, token: string, data: any) {
+    return this.axiosApiInstance.request({
+      method: "PUT",
+      url: url,
+      data: data,
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }
 }
 
 class RevalidateApi extends Api {
@@ -27,62 +50,32 @@ class RevalidateApi extends Api {
 }
 
 class ArticlesApi extends Api {
-  updateArticleProxy(articleId: string, content: string, revalidateRef: string) {
-    return axios.put("/api/articles/updateArticle", {
-      data: { articleId, content, revalidateRef },
-    });
-  }
-  updateArticle(token: string, articleId: string, content: string) {
-    return this.axiosApiInstance.request({
-      method: "PUT",
-      url: `/technology/topics/${articleId}`,
-      data: { content: content },
-      headers: { Authorization: `Bearer ${token}` },
-    });
-  }
   addArticleProxy(topicID: string, data: any, revalidateRef: string) {
-    return axios.post("/api/articles/addArticle", {
-      data: { topicID, data, revalidateRef },
-    });
-  }
-  addArticle(token: string, topicID: string, data: any) {
-    return this.axiosApiInstance.request({
-      method: "POST",
+    return axios.post("/api/universalPost", {
       url: `/technology/topics/${topicID}`,
-      data: data,
-      headers: { Authorization: `Bearer ${token}` },
-    });
-  }
-  addTopicProxy(data: { technology: string; header: string }, revalidateRef: string) {
-    return axios.post("/api/articles/addTopic", {
       data: data,
       revalidateRef: revalidateRef,
     });
   }
-  addTopic(token: string, data: { technology: string; header: string }) {
-    return this.axiosApiInstance.request({
-      method: "POST",
-      url: `/technology/createTopic`,
-      data: data,
-      headers: { Authorization: `Bearer ${token}` },
+  updateArticleProxy(articleId: string, content: string, revalidateRef: string) {
+    return axios.post("/api/universalPut", {
+      url: `/technology/topics/${articleId}`,
+      data: { content: content },
+      revalidateRef: revalidateRef,
     });
   }
   deleteArticleProxy(data: any, revalidateRef: string) {
-    return axios.post("/api/articles/deleteArticle", {
-      data: { data, revalidateRef },
-    });
-  }
-  deleteArticle(token: string, data: any) {
-    return this.axiosApiInstance.request({
-      method: "POST",
+    return axios.post("/api/universalPost", {
       url: `/technology/topics/deleteArticle`,
       data: data,
-      headers: { Authorization: `Bearer ${token}` },
+      revalidateRef: revalidateRef,
     });
   }
-  proxyApi() {
-    return axios.post("/api/proxyApi", {
-      data: "deleteArticle",
+  addTopicProxy(data: { technology: string; header: string }, revalidateRef: string) {
+    return axios.post("/api/universalPost", {
+      url: `/technology/createTopic`,
+      data: data,
+      revalidateRef: revalidateRef,
     });
   }
 }
@@ -91,6 +84,12 @@ class UsersApi extends Api {
   loginProxy(email: string, password: string) {
     return axios.post("/api/auth/login", {
       data: { email, password },
+    });
+  }
+  loginProxy2(email: string, password: string) {
+    return axios.post("/api/auth/login", {
+      data: { email, password },
+      url: `/users/signin`,
     });
   }
   login(email: string, password: string) {
@@ -130,22 +129,6 @@ class UsersApi extends Api {
       url: `/users/getUserWithFL`,
     });
   }
-  // TODO вынести выше
-  universalGet(url: string, token: string) {
-    return this.axiosApiInstance.request({
-      method: "GET",
-      url: url,
-      headers: { Authorization: `Bearer ${token}` },
-    });
-  }
-  universalPost(url: string, token: string, data: any) {
-    return this.axiosApiInstance.request({
-      method: "POST",
-      url: url,
-      data: data,
-    });
-  }
-
   addToFavoritesProxy(articleId: string) {
     return axios.post("/api/universalGet", {
       url: `/users/addToFavorites/${articleId}`,
