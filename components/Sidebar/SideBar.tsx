@@ -57,11 +57,16 @@ export const SideBar: NextPage<Props> = ({ article }) => {
                 <a
                   className="sideBarLink"
                   href={"#" + link.anchor}
-                  onClick={(e: any) => {
+                  onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
                     e.preventDefault();
-                    document.querySelector(e?.target.getAttribute("href")).scrollIntoView({
-                      behavior: "smooth",
-                    });
+                    document
+                      .querySelector(
+                        (e.target as HTMLAnchorElement)?.getAttribute("href") as string
+                        // typescript ...
+                      )
+                      ?.scrollIntoView({
+                        behavior: "smooth",
+                      });
                     if (window.innerWidth < 700) {
                       setShow(false);
                     }

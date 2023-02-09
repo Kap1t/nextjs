@@ -11,14 +11,10 @@ export default function useActiveSideBar() {
     };
   }, []);
   useEffect(() => {
-    // Баг ( условия в коллбек функции не выполняются), если useEffect срабатывает сразу
     if (check === false) return;
     const headings = document.querySelectorAll(".articleLink");
     const links = document.querySelectorAll(".sideBarLink");
-
     const cb = () => {
-      console.log(document.documentElement.scrollHeight, window.innerHeight, window.scrollY);
-
       headings.forEach((h2: any, index) => {
         //  h2.getBoundingClientRect().top не работает при деплое на vercel
         const top = h2.offsetTop - window.scrollY;
@@ -51,8 +47,7 @@ export default function useActiveSideBar() {
         }
       });
     };
-    cb(); // ?
-    console.log("add event listener");
+    cb();
     document.addEventListener("scroll", cb);
 
     return () => {

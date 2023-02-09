@@ -2,7 +2,6 @@ import axios from "axios";
 
 class Api {
   // private _baseApiUrl = "http://localhost:7000/api";
-  // private _baseApiUrl = "https://learn-web-api.herokuapp.com/api";
   private _baseApiUrl = "https://learnwebserver.onrender.com/api";
   private _axiosApiInstance = axios.create({ baseURL: this._baseApiUrl });
 
@@ -56,7 +55,8 @@ class ArticlesApi extends Api {
   }
   addTopicProxy(data: { technology: string; header: string }, revalidateRef: string) {
     return axios.post("/api/articles/addTopic", {
-      data: { data, revalidateRef },
+      data: data,
+      revalidateRef: revalidateRef,
     });
   }
   addTopic(token: string, data: { technology: string; header: string }) {
