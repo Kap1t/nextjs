@@ -15,7 +15,6 @@ import { AddArticle } from "../components/AddArticle";
 import { AddTopic } from "../components/AddTopic";
 
 import { DeleteArticleBtn } from "../components/DeleteArticleBtn";
-import { articlesApi } from "../Api/Api";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
