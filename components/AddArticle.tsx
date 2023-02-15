@@ -40,7 +40,7 @@ export const AddArticle: NextPage<Props> = React.memo(({ topic }) => {
             e.preventDefault();
             const req = async () => {
               try {
-                await articlesApi.addArticleProxy(
+                await articlesApi.addArticle(
                   `${topic._id}`,
                   {
                     technology: topic.technology,

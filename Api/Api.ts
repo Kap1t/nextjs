@@ -53,28 +53,28 @@ class RevalidateApi extends Api {
 }
 
 class ArticlesApi extends Api {
-  addArticleProxy(topicID: string, data: any, revalidateRef: string) {
+  addArticle(topicID: string, data: any, revalidateRef: string) {
     return axios.post("/api/universalPost", {
       url: `/technology/topics/${topicID}`,
       data: data,
       revalidateRef: revalidateRef,
     });
   }
-  updateArticleProxy(articleId: string, content: string, revalidateRef: string) {
+  updateArticle(articleId: string, content: string, revalidateRef: string) {
     return axios.post("/api/universalPut", {
       url: `/technology/topics/${articleId}`,
       data: { content: content },
       revalidateRef: revalidateRef,
     });
   }
-  deleteArticleProxy(data: any, revalidateRef: string) {
+  deleteArticle(data: any, revalidateRef: string) {
     return axios.post("/api/universalPost", {
       url: `/technology/topics/deleteArticle`,
       data: data,
       revalidateRef: revalidateRef,
     });
   }
-  addTopicProxy(data: { technology: string; header: string }, revalidateRef: string) {
+  addTopic(data: { technology: string; header: string }, revalidateRef: string) {
     return axios.post("/api/universalPost", {
       url: `/technology/createTopic`,
       data: data,

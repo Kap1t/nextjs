@@ -30,7 +30,7 @@ export const AddTopic: NextPage = React.memo(() => {
             e.preventDefault();
             const req = async () => {
               try {
-                await articlesApi.addTopicProxy(
+                await articlesApi.addTopic(
                   {
                     technology: router.query.topics as string,
                     header: e.target[0].value,

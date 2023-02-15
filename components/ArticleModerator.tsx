@@ -27,7 +27,7 @@ const ArticleModerator: NextPage<Props> = ({ article, markdownString, setMarkdow
           const req = async () => {
             try {
               const textarea = e.target[0].value;
-              await articlesApi.updateArticleProxy(article._id, textarea, `${router.asPath}`);
+              await articlesApi.updateArticle(article._id, textarea, `${router.asPath}`);
               router.reload();
             } catch (error) {
               alert(error);

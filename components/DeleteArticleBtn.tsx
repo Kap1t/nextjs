@@ -20,7 +20,7 @@ export const DeleteArticleBtn: NextPage<Props> = React.memo(
         onClick={() => {
           const req = async () => {
             try {
-              await articlesApi.deleteArticleProxy(
+              await articlesApi.deleteArticle(
                 {
                   topicID: topicID,
                   articleID: articleID,
