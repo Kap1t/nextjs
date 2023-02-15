@@ -5,5 +5,7 @@ export default async function logout(req: NextApiRequest, res: NextApiResponse) 
   if (req.method === "POST") {
     res.setHeader("Set-Cookie", [generateCookie.removeToken(), generateCookie.removeRolesStr()]);
     res.status(200).json({ message: "successlogout" });
+    return;
   }
+  res.status(400).json({ message: "badMethod" });
 }

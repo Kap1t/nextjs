@@ -41,7 +41,7 @@ export const ReadLater: NextPage<Props> = ({ article }) => {
           setDisabled(true);
           const req = async () => {
             try {
-              const response = await userApi.removeFromReadLaterProxy(article._id);
+              const response = await userApi.removeFromReadLater(article._id);
               context.setUser({ ...response.data, isAuth: true });
               setDisabled(false);
             } catch (error) {
@@ -54,7 +54,7 @@ export const ReadLater: NextPage<Props> = ({ article }) => {
           setDisabled(true);
           const req = async () => {
             try {
-              const response = await userApi.addToReadLaterProxy(article._id);
+              const response = await userApi.addToReadLater(article._id);
               context.setUser({ ...response.data, isAuth: true });
               setDisabled(false);
             } catch (error) {

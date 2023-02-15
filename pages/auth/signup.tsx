@@ -25,7 +25,7 @@ const Login: NextPage = () => {
     setReqError("");
     const req = async () => {
       try {
-        await userApi.signUpProxy(formData.email, formData.password, formData.name);
+        await userApi.signUp(formData.email, formData.password, formData.name);
         router.reload();
       } catch (error: any) {
         if (error.response?.status === 403) {

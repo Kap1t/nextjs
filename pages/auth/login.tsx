@@ -28,7 +28,7 @@ const Login: NextPage = () => {
     setReqError("");
     const req = async () => {
       try {
-        const response = await userApi.loginProxy(formData.email, formData.password);
+        const response = await userApi.login(formData.email, formData.password);
         router.reload();
       } catch (error: any) {
         if (error.response?.status === 401) {

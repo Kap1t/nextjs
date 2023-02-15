@@ -51,7 +51,7 @@ export const Bookmark: FC<Props> = ({ bookmarks, title, category }) => {
                     case "favorites":
                       try {
                         const req = async () => {
-                          const res = await userApi.removeFromFavoritesProxy(bookmark._id);
+                          const res = await userApi.removeFromFavorites(bookmark._id);
                           const updBookmarks = bookmarksState.filter(
                             (item) => item._id !== bookmark._id
                           );
@@ -65,7 +65,7 @@ export const Bookmark: FC<Props> = ({ bookmarks, title, category }) => {
                     case "readLater":
                       try {
                         const req = async () => {
-                          const res = await userApi.removeFromReadLaterProxy(bookmark._id);
+                          const res = await userApi.removeFromReadLater(bookmark._id);
                           const updBookmarks = bookmarksState.filter(
                             (item) => item._id !== bookmark._id
                           );

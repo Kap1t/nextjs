@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import React from "react";
 import { useState } from "react";
-import { articlesApi, revalidateApi } from "../Api/Api";
+import { articlesApi } from "../Api/Api";
 import styles from "../styles/Topics.module.scss";
 
 interface Props {

@@ -41,7 +41,7 @@ export const Favorite: NextPage<Props> = ({ article }) => {
           setDisabled(true);
           const req = async () => {
             try {
-              const response = await userApi.removeFromFavoritesProxy(article._id);
+              const response = await userApi.removeFromFavorites(article._id);
               context.setUser({ ...response.data, isAuth: true });
               setDisabled(false);
             } catch (error) {
@@ -54,7 +54,7 @@ export const Favorite: NextPage<Props> = ({ article }) => {
           setDisabled(true);
           const req = async () => {
             try {
-              const response = await userApi.addToFavoritesProxy(article._id);
+              const response = await userApi.addToFavorites(article._id);
               context.setUser({ ...response.data, isAuth: true });
               setDisabled(false);
             } catch (error) {

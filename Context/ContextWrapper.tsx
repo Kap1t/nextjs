@@ -1,9 +1,10 @@
 import type { NextPage } from "next";
 import React, { createContext, useCallback, useEffect, useState } from "react";
 import { userApi } from "../Api/Api";
+import { parseCookies } from "../utils";
 
-export type IsAuth = boolean | "loading";
-export interface User {
+type IsAuth = boolean | "loading";
+interface User {
   isAuth: IsAuth;
   roles: string[];
   favorites: string[];
@@ -12,7 +13,7 @@ export interface User {
 
 interface MainContext {
   user: User;
-  setUser: (themeState: User) => void;
+  setUser: React.Dispatch<React.SetStateAction<User>>;
 }
 const initialUserState: User = { isAuth: "loading", roles: [], favorites: [], readLater: [] };
 export const mainContext = createContext<MainContext>({
@@ -20,33 +21,19 @@ export const mainContext = createContext<MainContext>({
   setUser: () => {},
 });
 
-function parseCookies(cookieHeader: string) {
-  const list: any = {};
-  cookieHeader.split(`;`).forEach(function (cookie) {
-    let [name, ...rest] = cookie.split(`=`);
-    name = name?.trim();
-    if (!name) return;
-    const value = rest.join(`=`).trim();
-    if (!value) return;
-    list[name] = decodeURIComponent(value);
-  });
-  return list;
-}
-
 interface Props {
   children: React.ReactNode;
 }
 
-const checkIsAuthInCookie = async () => {
+const checkIsAuthInCookie = async (): Promise<User> => {
   if (typeof window !== "undefined") {
     const parsedCookies = parseCookies(document.cookie);
     const { rolesStr } = parsedCookies;
     if (rolesStr === undefined) {
       return { ...initialUserState, isAuth: false };
     }
-
     try {
-      const res = await userApi.getUserDataProxy();
+      const res = await userApi.getUserData();
       const user = res.data;
       return {
         isAuth: true,

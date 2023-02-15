@@ -6,33 +6,10 @@ import MainLayout from "../components/MainLayout";
 import { mainContext } from "../Context/ContextWrapper";
 import styles from "../styles/User.module.scss";
 import { Bookmark } from "../components/Bookmark/Bookmark";
-
-interface User {
-  name: string;
-  email: string;
-  roles: string[];
-  favorites: string[];
-  readLater: string[];
-  favoritesLinks: [
-    {
-      _id: string;
-      technology: string;
-      ref: string;
-      name: string;
-    }
-  ];
-  readLaterLinks: [
-    {
-      _id: string;
-      technology: string;
-      ref: string;
-      name: string;
-    }
-  ];
-}
+import { UserWithFL } from "../types/userTypes";
 
 const User: NextPage = () => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserWithFL | null>(null);
   const router = useRouter();
   const context = useContext(mainContext);
 
@@ -42,11 +19,9 @@ const User: NextPage = () => {
   useEffect(() => {
     const req = async () => {
       try {
-        const response = await userApi.getUserDataProxy();
-        const userR = response.data;
-        setUser(userR);
+        const response = await userApi.getUserDataWithFL();
+        setUser(response.data);
       } catch (error: any) {
-        console.log(error.response?.status);
         if (error.response?.status === 401) {
           router.reload();
         }

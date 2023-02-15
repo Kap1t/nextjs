@@ -1,19 +1,22 @@
 import axios from "axios";
+import { IsAuth, IsModarator, Message } from "../types/differentTypes";
+import { User, UserWithFL } from "../types/userTypes";
 
 class Api {
   // private _baseApiUrl = "http://localhost:7000/api";
   private _baseApiUrl = "https://learnwebserver.onrender.com/api";
   private _axiosApiInstance = axios.create({ baseURL: this._baseApiUrl });
 
-  private _baseThisUrl = "/api";
-  private _axiosThisInstance = axios.create({ baseURL: this._baseThisUrl });
+  private _baseNextJSUrl = "/api";
+  private _axiosNextJSUrl = axios.create({ baseURL: this._baseNextJSUrl });
 
   get axiosApiInstance() {
     return this._axiosApiInstance;
   }
-  get axiosThisInstance() {
-    return this._axiosThisInstance;
+  get axiosNextJSInstance() {
+    return this._axiosNextJSUrl;
   }
+
   universalGet(url: string, token: string) {
     return this.axiosApiInstance.request({
       method: "GET",
@@ -41,7 +44,7 @@ class Api {
 
 class RevalidateApi extends Api {
   revalidate(ref: string) {
-    return this.axiosThisInstance.request({
+    return this.axiosNextJSInstance.request({
       method: "POST",
       url: `/revalidate`,
       data: { ref: ref },
@@ -81,71 +84,56 @@ class ArticlesApi extends Api {
 }
 
 class UsersApi extends Api {
-  loginProxy(email: string, password: string) {
-    return axios.post("/api/auth/login", {
-      data: { email, password },
-    });
-  }
-  loginProxy2(email: string, password: string) {
-    return axios.post("/api/auth/login", {
-      data: { email, password },
-      url: `/users/signin`,
-    });
-  }
   login(email: string, password: string) {
-    return this.axiosApiInstance.request({
-      method: "POST",
-      url: `/users/signin`,
+    return axios.post<Message>("/api/auth/login", {
       data: { email, password },
-    });
-  }
-  signUpProxy(email: string, password: string, name: string) {
-    return axios.post("/api/auth/signup", {
-      data: { email, password, name },
     });
   }
   signUp(email: string, password: string, name: string) {
-    return this.axiosApiInstance.request({
-      method: "POST",
-      url: `/users/signup`,
+    return axios.post<Message>("/api/auth/signup", {
       data: { email, password, name },
     });
   }
   logOut() {
-    return axios.post("/api/auth/logout");
+    return axios.post<Message>("/api/auth/logout");
   }
   checkIsModarator() {
-    return axios.post("/api/universalGet", {
+    return axios.post<IsModarator>("/api/universalGet", {
       url: `/users/checkIsModarator`,
     });
   }
   checkIsAuth() {
-    return axios.post("/api/universalGet", {
+    return axios.post<IsAuth>("/api/universalGet", {
       url: `/users/checkIsAuth`,
     });
   }
-  getUserDataProxy() {
-    return axios.post("/api/universalGet", {
+  getUserData() {
+    return axios.post<User>("/api/universalGet", {
+      url: `/users/getUser`,
+    });
+  }
+  getUserDataWithFL() {
+    return axios.post<UserWithFL>("/api/universalGet", {
       url: `/users/getUserWithFL`,
     });
   }
-  addToFavoritesProxy(articleId: string) {
-    return axios.post("/api/universalGet", {
+  addToFavorites(articleId: string) {
+    return axios.post<User>("/api/universalGet", {
       url: `/users/addToFavorites/${articleId}`,
     });
   }
-  removeFromFavoritesProxy(articleId: string) {
-    return axios.post("/api/universalGet", {
+  removeFromFavorites(articleId: string) {
+    return axios.post<User>("/api/universalGet", {
       url: `/users/removeFromFavorites/${articleId}`,
     });
   }
-  addToReadLaterProxy(articleId: string) {
-    return axios.post("/api/universalGet", {
+  addToReadLater(articleId: string) {
+    return axios.post<User>("/api/universalGet", {
       url: `/users/addToReadLater/${articleId}`,
     });
   }
-  removeFromReadLaterProxy(articleId: string) {
-    return axios.post("/api/universalGet", {
+  removeFromReadLater(articleId: string) {
+    return axios.post<User>("/api/universalGet", {
       url: `/users/removeFromReadLater/${articleId}`,
     });
   }

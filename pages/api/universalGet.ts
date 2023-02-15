@@ -18,7 +18,6 @@ export default async function universalGet(req: NextApiRequest, res: NextApiResp
     const response = await userApi.universalGet(req.body.url, req.cookies.token);
     res.status(200).json(response.data || { message: "success" });
   } catch (error: any) {
-    // Todo проверка error ?
     if (error.response.status === 401) {
       console.log(401);
       logOut(res);

@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 import { useRouter } from "next/router";
 
 import styles from "../styles/Article.module.scss";
-import { articlesApi, revalidateApi } from "../Api/Api";
+import { articlesApi } from "../Api/Api";
 
 interface Props {
   article: {

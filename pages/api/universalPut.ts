@@ -14,7 +14,7 @@ export const defaultError = (res: NextApiResponse, error: any) => {
 
 export default async function universalGet(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const response = await userApi.universalPost(req.body.url, req.cookies.token, req.body.data);
+    const response = await userApi.universalPut(req.body.url, req.cookies.token, req.body.data);
     if (req.body?.revalidateRef) {
       console.log(req.body?.revalidateRef);
       await res.unstable_revalidate(`${req.body?.revalidateRef}`);
