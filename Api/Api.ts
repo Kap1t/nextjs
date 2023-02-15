@@ -16,7 +16,6 @@ class Api {
   get axiosNextJSInstance() {
     return this._axiosNextJSUrl;
   }
-
   universalGet(url: string, token: string) {
     return this.axiosApiInstance.request({
       method: "GET",
@@ -38,47 +37,6 @@ class Api {
       url: url,
       data: data,
       headers: { Authorization: `Bearer ${token}` },
-    });
-  }
-}
-
-class RevalidateApi extends Api {
-  revalidate(ref: string) {
-    return this.axiosNextJSInstance.request({
-      method: "POST",
-      url: `/revalidate`,
-      data: { ref: ref },
-    });
-  }
-}
-
-class ArticlesApi extends Api {
-  addArticle(topicID: string, data: any, revalidateRef: string) {
-    return axios.post("/api/universalPost", {
-      url: `/technology/topics/${topicID}`,
-      data: data,
-      revalidateRef: revalidateRef,
-    });
-  }
-  updateArticle(articleId: string, content: string, revalidateRef: string) {
-    return axios.post("/api/universalPut", {
-      url: `/technology/topics/${articleId}`,
-      data: { content: content },
-      revalidateRef: revalidateRef,
-    });
-  }
-  deleteArticle(data: any, revalidateRef: string) {
-    return axios.post("/api/universalPost", {
-      url: `/technology/topics/deleteArticle`,
-      data: data,
-      revalidateRef: revalidateRef,
-    });
-  }
-  addTopic(data: { technology: string; header: string }, revalidateRef: string) {
-    return axios.post("/api/universalPost", {
-      url: `/technology/createTopic`,
-      data: data,
-      revalidateRef: revalidateRef,
     });
   }
 }
@@ -138,6 +96,52 @@ class UsersApi extends Api {
     });
   }
 }
+
+class ArticlesApi extends Api {
+  addArticle(
+    topicID: string,
+    data: { technology: string; name: string; ref: string },
+    revalidateRef: string
+  ) {
+    return axios.post("/api/universalPost", {
+      url: `/technology/topics/${topicID}`,
+      data: data,
+      revalidateRef: revalidateRef,
+    });
+  }
+  updateArticle(articleId: string, content: string, revalidateRef: string) {
+    return axios.post("/api/universalPut", {
+      url: `/technology/topics/${articleId}`,
+      data: { content: content },
+      revalidateRef: revalidateRef,
+    });
+  }
+  deleteArticle(data: { topicID: string; articleID: string }, revalidateRef: string) {
+    return axios.post("/api/universalPost", {
+      url: `/technology/topics/deleteArticle`,
+      data: data,
+      revalidateRef: revalidateRef,
+    });
+  }
+  addTopic(data: { technology: string; header: string }, revalidateRef: string) {
+    return axios.post("/api/universalPost", {
+      url: `/technology/createTopic`,
+      data: data,
+      revalidateRef: revalidateRef,
+    });
+  }
+}
+
+class RevalidateApi extends Api {
+  revalidate(ref: string) {
+    return this.axiosNextJSInstance.request({
+      method: "POST",
+      url: `/revalidate`,
+      data: { ref: ref },
+    });
+  }
+}
+
 export const revalidateApi = new RevalidateApi();
 export const articlesApi = new ArticlesApi();
 export const userApi = new UsersApi();

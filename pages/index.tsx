@@ -6,15 +6,14 @@ import React from "react";
 import MainLayout from "../components/MainLayout";
 import styles from "../styles/MainComponent.module.scss";
 
-import { ITechnology } from "./api/technology";
+import axios from "axios";
+import { Technology } from "../types/main";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
-    // const response = await fetch(`${process.env.HOST}/api/technology`);
-    const response = await fetch(`${process.env.HOST_API}/api/technology`);
-
-    const technology = await response.json();
-    console.log(technology);
+    const { data: technology } = await axios.get<Technology[]>(
+      `${process.env.HOST_API}/api/technology`
+    );
 
     if (!technology) {
       return {
@@ -22,20 +21,20 @@ export const getStaticProps: GetStaticProps = async (context) => {
       };
     }
     return {
-      props: { technology },
+      props: { technology: technology },
       revalidate: 60 * 60 * 12,
     };
   } catch (error) {
     console.log(error);
     return {
       props: { technology: [] },
-      // revalidate: 10,
+      revalidate: 5,
     };
   }
 };
 
 interface Props {
-  technology: ITechnology[];
+  technology: Technology[];
 }
 
 const MainComponent: NextPage<Props> = ({ technology }) => {
@@ -61,7 +60,6 @@ const MainComponent: NextPage<Props> = ({ technology }) => {
                       width="250"
                       height="150"
                       alt={oneTechnology.title}
-                      // placeholder="blur"
                     ></Image>
                     <p>{oneTechnology.description}</p>
                   </div>
