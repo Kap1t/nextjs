@@ -1,5 +1,6 @@
 const j = 6;
 const b = j * 10;
+const c = b / 5;
 
 import axios from "axios";
 import { IsAuth, IsModarator, Message } from "../types/differentTypes";
